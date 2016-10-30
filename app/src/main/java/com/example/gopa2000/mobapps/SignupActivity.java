@@ -1,17 +1,13 @@
 package com.example.gopa2000.mobapps;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        setContentView(R.layout.activity_signup);
     }
 }
