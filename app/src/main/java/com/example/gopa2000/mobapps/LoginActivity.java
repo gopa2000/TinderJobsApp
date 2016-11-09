@@ -22,10 +22,14 @@ public class LoginActivity extends AppCompatActivity {
     private TextView registrationLink;
     private Button loginBtn;
 
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sessionManager = new SessionManager(getApplicationContext());
 
         emailInput = (EditText) findViewById(R.id.input_email);
         passwordInput = (EditText) findViewById(R.id.input_password);
@@ -71,24 +75,28 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         loginBtn.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
+        final ProgressDialog progressDialog;
+
+        progressDialog = ProgressDialog.show(this, "", "Authenicating...", true, false);
 
         String email = emailInput.getText().toString();
         String password = emailInput.getText().toString();
 
+        boolean flag = false;
+
         // Authentication Logic
+        if(email.equals("gaand@danda.com"))
+            flag = true;
 
-
+        final boolean finFlag = flag;
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        if(finFlag)
+                            onLoginSuccess();
+                        else
+                            onLoginFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -103,11 +111,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         loginBtn.setEnabled(true);
+        sessionManager.createLoginSession(emailInput.getText().toString());
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), emailInput.getText().toString(), Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 

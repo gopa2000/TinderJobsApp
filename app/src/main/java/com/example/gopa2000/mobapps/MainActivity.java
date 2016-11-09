@@ -11,15 +11,19 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sessionManager = new SessionManager(getApplicationContext());
+
         // TODO: 11/4/16
         // Start login activity only if not already logged in
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+
+        sessionManager.checkLogin();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("").setIcon(getResources().getDrawable(R.drawable.profileicon)));
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        viewPager.setCurrentItem(1);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
