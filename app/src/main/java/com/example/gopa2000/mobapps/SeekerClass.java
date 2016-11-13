@@ -1,18 +1,12 @@
 package com.example.gopa2000.mobapps;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Created by gopa2000 on 11/4/16.
  */
 
-public class SeekerClass {
+public class SeekerClass extends CustomCard {
     private String fname;
     private String lname;
     private String imgToUpload;
@@ -23,6 +17,7 @@ public class SeekerClass {
     private String email;
 
     public SeekerClass(String fname, String lname, Bitmap imgToUpload, String education, String workExp, String skills, String contact, String email){
+        super();
         this.fname = fname;
         this.lname = lname;
         this.imgToUpload = (imgToUpload != null ? Util.encodeTobase64(imgToUpload) : null);
@@ -33,7 +28,10 @@ public class SeekerClass {
         this.email = email;
     }
 
-
+    @Override
+    public String toString() {
+        return this.fname + " " + this.lname + " " + this.education + this.workExp + this.skills + this.contact + this.email;
+    }
 
     public String getFname() {
         return fname;
