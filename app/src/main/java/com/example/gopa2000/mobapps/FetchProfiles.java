@@ -21,7 +21,7 @@ public class FetchProfiles extends AsyncTask<String, Void, ArrayList<CustomCard>
 
         for(int i=0; i<10; i++){
             //Log.i(TAG, "doInBackground: creating profile object " + i);
-            profiles.add(new SeekerClass(i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email"));
+            profiles.add(new SeekerClass(i + "salut", i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email"));
         }
 
         return profiles;
