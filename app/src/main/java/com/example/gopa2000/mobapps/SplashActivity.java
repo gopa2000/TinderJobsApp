@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         ArrayList<CustomCard> profiles = new ArrayList<>();
         for(int i=0; i<10; i++){
             Log.i(TAG, "doInBackground: creating profile object " + i);
-            profiles.add(new SeekerClass(i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email"));
+            profiles.add(new SeekerClass(i + "salut", i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email"));
         }
 
         Log.i(TAG, "onCreate: cards arraylist size:" + profiles.size());
@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
         ArrayList<CustomCard> profiles = new ArrayList<>();
         for(int i=0; i<10; i++){
             Log.i(TAG, "doInBackground: creating profile object " + i);
-            profiles.add(new SeekerClass(i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email"));
+            profiles.add(new SeekerClass(i + "salut", i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email"));
         }
 
         Log.i(TAG, "onCreate: cards arraylist size:" + profiles.size());
