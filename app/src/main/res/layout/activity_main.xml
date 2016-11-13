@@ -21,8 +21,8 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabIndicatorColor="#b2e0e0"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <com.example.gopa2000.mobapps.NonSwipeableViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/tab_layout"/>
