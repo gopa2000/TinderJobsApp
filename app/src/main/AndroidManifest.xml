@@ -9,8 +9,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.App.Base" />
+        <activity
+            android:name=".SignupActivity"
+            android:theme="@style/Theme.App.Base" />
+        <activity
+            android:name=".ExpertSignupActivity"
+            android:theme="@style/Theme.App.Base" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrationChoice"></activity>
+        <activity android:name=".RegistrationChoice" />
     </application>
 
 </manifest>

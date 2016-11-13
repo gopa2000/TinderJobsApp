@@ -29,29 +29,47 @@
             android:layout_marginBottom="8dp"
             android:textColorHint="#009A9A"
             app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout" >
-            <EditText android:id="@+id/input_fname"
+            <EditText android:id="@+id/input_cname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="First Name"
+                android:hint="Company Name"
                 android:textColor="#ffffff"/>
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Name Label -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/p_info_layout">
+
+        <!-- Info Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:textColorHint="#009A9A"
             app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-            <EditText android:id="@+id/input_lname"
+            <EditText android:id="@+id/input_cinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Last Name"
+                android:hint="Company Information"
                 android:textColor="#ffffff" />
         </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+        <Button
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:id="@+id/btn_info_addline"
+            android:padding="12dp"
+            android:text="+"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"/>
+
 
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -113,111 +131,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Mobile Number"
+                android:hint="Contact Number"
                 android:textColor="#ffffff" />
         </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <!--  Email Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/p_edu_layout">
-
-            <!-- Education Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="#009A9A"
-                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-                <EditText android:id="@+id/input_education"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:inputType="textAutoCorrect"
-                    android:isScrollContainer="true"
-                    android:hint="Educational Qualifications" />
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_edu_addline"
-            android:padding="12dp"
-            android:text="+"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"/>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/p_exp_layout">
-
-        <!-- Work Experience Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#009A9A"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-            <EditText android:id="@+id/input_work_exp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:inputType="textAutoCorrect"
-                android:hint="Work Experience" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_exp_addline"
-            android:padding="12dp"
-            android:text="+"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"/>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/p_skills_layout">
-
-        <!-- Skills Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#009A9A"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-            <EditText android:id="@+id/input_skills"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:inputType="textAutoCorrect"
-                android:hint="Skills" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_skills_addline"
-            android:padding="12dp"
-            android:text="+"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:layout_gravity="center"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"/>
+            android:textColorHint="#009A9A"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+            <EditText android:id="@+id/input_contactemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="Contact Email"
+                android:textColor="#ffffff" />
+        </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
         <Button
