@@ -13,8 +13,8 @@ import java.io.Serializable;
  * Created by gopa2000 on 11/4/16.
  */
 
-public class SeekerClass {
-    private Spinner salutation;
+public class SeekerClass extends CustomCard{
+    private String salutation;
     private String fname;
     private String lname;
     private String imgToUpload;
@@ -24,7 +24,7 @@ public class SeekerClass {
     private String mobNumber;
     private String email;
 
-    public SeekerClass(Spinner salutation, String fname, String lname, Bitmap imgToUpload, String education, String workExp, String skills, String mobNumber, String email){
+    public SeekerClass(String salutation, String fname, String lname, Bitmap imgToUpload, String education, String workExp, String skills, String mobNumber, String email){
         this.salutation = salutation;
         this.fname = fname;
         this.lname = lname;
@@ -36,7 +36,7 @@ public class SeekerClass {
         this.email = email;
     }
 
-    public Spinner getSalutation() { return salutation; }
+    public String getSalutation() { return salutation; }
 
     public String getFname() {
         return fname;
