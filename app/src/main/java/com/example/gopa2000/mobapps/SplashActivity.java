@@ -19,7 +19,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        sessionCache = SessionCache.getInstance();
+        sessionManager =  new SessionManager(getApplicationContext());
+        sessionCache = sessionManager.getSessionCache();
 
         // get objects passed to sessioncache synchronously for testing purposes
         //syncDebugTest();

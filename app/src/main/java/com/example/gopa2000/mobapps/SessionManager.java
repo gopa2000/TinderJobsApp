@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 /**
@@ -11,6 +13,10 @@ import java.util.HashMap;
  */
 
 public class SessionManager {
+
+    // Session Cache
+    private static SessionCache sessionCache;
+
     // Shared Preferences
     SharedPreferences pref;
 
@@ -36,14 +42,17 @@ public class SessionManager {
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
+        this.sessionCache = new SessionCache();
     }
 
-    public void createLoginSession(String email){
+    public void createLoginSession(JSONObject userDetails){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGGED_IN, true);
 
-        // Storing email in pref
-        editor.putString(KEY_EMAIL, email);
+        //String userType = userDetails.getString("type");
+
+        /// / Storing email in pref
+       // editor.putString(KEY_EMAIL, email);
 
         // commit changes
         editor.commit();
@@ -81,5 +90,9 @@ public class SessionManager {
     // get login state
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGGED_IN, false);
+    }
+
+    public SessionCache getSessionCache(){
+        return sessionCache;
     }
 }
