@@ -3,10 +3,14 @@ package com.example.gopa2000.mobapps;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by gopa2000 on 11/8/16.
@@ -15,7 +19,7 @@ import java.util.HashMap;
 public class SessionManager {
 
     // Session Cache
-    private static SessionCache sessionCache;
+    private static SessionCache sessionCache = new SessionCache();
 
     // Shared Preferences
     SharedPreferences pref;
@@ -35,27 +39,73 @@ public class SessionManager {
     // Shared prefs keys
     private static final String IS_LOGGED_IN = "IsLoggedIn";
 
-    // public
+    // common
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_TYPE = "type";
+    public static final String KEY_IMG = "img";
+    public static final String KEY_MOBNUM = "mobnum";
+    public static final String KEY_LIKES = "likes";
+    public static final String KEY_TAGS = "tags";
+
+    // seeker specific
+    public static final String KEY_FNAME = "fname";
+    public static final String KEY_LNAME = "lname";
+    public static final String KEY_SALUT = "salut";
+    public static final String KEY_WORKEXP = "workexp";
+    public static final String KEY_EDUCATION = "education";
+    public static final String KEY_SKILLS = "skills";
+
+    // employer specific
+    public static final String KEY_NAME = "name";
+    public static final String KEY_INFO = "info";
+
+    // listing specific
+    public static final String KEY_DESC = "jobdesc";
+    public static final String KEY_SKILLSREQ = "skillsreq";
+    public static final String KEY_OWNER = "owner";
 
     public SessionManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
-        this.sessionCache = new SessionCache();
     }
 
     public void createLoginSession(JSONObject userDetails){
-        // Storing login value as TRUE
-        editor.putBoolean(IS_LOGGED_IN, true);
+        try {
+            // Storing login value as TRUE
+            editor.putBoolean(IS_LOGGED_IN, true);
 
-        //String userType = userDetails.getString("type");
+            String userType = userDetails.getString("type");
 
-        /// / Storing email in pref
-       // editor.putString(KEY_EMAIL, email);
+            editor.putString(KEY_TYPE, userType);
+            editor.putString(KEY_EMAIL, userDetails.getString("email"));
+            editor.putString(KEY_MOBNUM, userDetails.getString("mobnum"));
+            editor.putString(KEY_IMG, userDetails.getString("img"));
+            editor.putString(KEY_LIKES, userDetails.getString("likes"));
+            editor.putString(KEY_TAGS, userDetails.getString("tags"));
 
-        // commit changes
-        editor.commit();
+            // seeker specific
+            if(userType.equals("seeker")){
+                editor.putString(KEY_SKILLS, userDetails.getString("skills"));
+                editor.putString(KEY_WORKEXP, userDetails.getString("workexp"));
+                editor.putString(KEY_EDUCATION, userDetails.getString("education"));
+                editor.putString(KEY_FNAME, userDetails.getString("fname"));
+                editor.putString(KEY_LNAME, userDetails.getString("lnmae"));
+                editor.putString(KEY_SALUT, userDetails.getString("salut"));
+            }
+
+            // employer specific
+            else if(userType.equals("employer")){
+                editor.putString(KEY_INFO, userDetails.getString("info"));
+                editor.putString(KEY_NAME, userDetails.getString("name"));
+            }
+
+
+            // commit changes
+            editor.commit();
+        } catch (JSONException e){
+            Log.e(TAG, "createLoginSession: ", e);
+        }
     }
 
     public void logoutUser(){
@@ -93,6 +143,6 @@ public class SessionManager {
     }
 
     public SessionCache getSessionCache(){
-        return sessionCache;
+        return SessionManager.sessionCache;
     }
 }

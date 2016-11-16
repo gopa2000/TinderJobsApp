@@ -8,17 +8,19 @@ import java.util.ArrayList;
  * Created by gopa2000 on 11/4/16.
  */
 
-public class JobListingClass {
+public class JobListingClass extends CustomCard {
     private String logoToUpload;
     private String companyName;
     private String jobDescription;
     private String skillsRequired;
+    private String tags;
 
-    public JobListingClass(Bitmap logoToUpload, String companyName, ArrayList<String> jobDescription, ArrayList<String> skillsRequired){
+    public JobListingClass(Bitmap logoToUpload, String companyName, ArrayList<String> jobDescription, ArrayList<String> skillsRequired, String tags){
         this.logoToUpload = (logoToUpload != null ? Util.encodeTobase64(logoToUpload) : null);
         this.companyName = companyName;
         this.jobDescription = Util.listToString(jobDescription);
         this.skillsRequired = Util.listToString(skillsRequired);
+        this.tags = tags;
     }
 
     public String getLogoToUpload() {
