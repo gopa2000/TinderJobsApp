@@ -266,4 +266,29 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.update(TABLE_LASTMODIFIED, values, where, whereArgs);
     }
+
+    public ArrayList<SeekerClass> getSeekers(){
+        ArrayList<SeekerClass> result = new ArrayList<>();
+
+        String SELECT_QUERY = "SELECT * FROM Seekers;";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor cursor = db.rawQuery(SELECT_QUERY, null){
+            
+        };
+
+        return result;
+    }
+
+    public ArrayList<JobListingClass> getListings(){
+        ArrayList<JobListingClass> result = new ArrayList<>();
+
+        return result;
+    }
+
+    public ArrayList<EmployerClass> getEmployers(){
+        ArrayList<EmployerClass> result = new ArrayList<>();
+
+        return result;
+    }
 }

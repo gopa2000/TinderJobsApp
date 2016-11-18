@@ -1,6 +1,9 @@
 package com.example.gopa2000.mobapps;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -9,12 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     SessionManager sessionManager;
-
+    protected SocketListener socketService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sessionManager = new SessionManager(getApplicationContext());
+
+        // Connect to background socket
+        Intent serviceIntent = new Intent(MainActivity.this, SocketListener.class);
+        startService(serviceIntent);
 
         // TODO: 11/4/16
         // Start login activity only if not already logged in
@@ -62,5 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            socketService = ((SocketListener.LocalBinder) iBinder).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            socketService = null;
+        }
+    };
 
 }

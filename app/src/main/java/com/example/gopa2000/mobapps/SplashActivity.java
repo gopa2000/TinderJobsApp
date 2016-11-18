@@ -11,6 +11,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -20,6 +21,8 @@ import java.util.Hashtable;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.example.gopa2000.mobapps.DbHelper.TABLE_SEEKERS;
+
 public class SplashActivity extends AppCompatActivity {
 
     private final String TAG = "Splash Activity";
@@ -28,6 +31,8 @@ public class SplashActivity extends AppCompatActivity {
     SessionCache sessionCache;
     DbHelper dbHelper;
 
+    private ArrayList<Boolean> downloadCompleted;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +40,22 @@ public class SplashActivity extends AppCompatActivity {
 
         sessionManager =  new SessionManager(getApplicationContext());
         sessionCache = sessionManager.getSessionCache();
-
-        // creates
         dbHelper = new DbHelper(getApplicationContext());
+        downloadCompleted = new ArrayList<>();
 
         Hashtable<String, String> last_downloaded = dbHelper.getLastDownloaded();
 
+        Log.i(TAG, "onCreate: LastModified TABLE_SEEKERS " + last_downloaded.get(TABLE_SEEKERS));
+        Log.i(TAG, "onCreate: LastModified TABLE_EMPLOYERS " + last_downloaded.get(DbHelper.TABLE_EMPLOYERS));
+        Log.i(TAG, "onCreate: LastModified TABLE_LIKES " + last_downloaded.get(DbHelper.TABLE_LIKES));
+        Log.i(TAG, "onCreate: LastModified TABLE_LISTINGS " + last_downloaded.get(DbHelper.TABLE_LISTINGS));
+        Log.i(TAG, "onCreate: LastModified TABLE_MATCHED " + last_downloaded.get(DbHelper.TABLE_MATCHED));
+
         downloadEmployers(last_downloaded.get(DbHelper.TABLE_EMPLOYERS));
-        downloadSeekers(last_downloaded.get(DbHelper.TABLE_SEEKERS));
-        // downloadLikeTable(last_downloaded.get(DbHelper.TABLE_LIKES));
-        // downloadListing(last_downloaded.get(DbHelper.TABLE_LISTINGS));
+        downloadSeekers(last_downloaded.get(TABLE_SEEKERS));
+        downloadLikeTable(last_downloaded.get(DbHelper.TABLE_LIKES));
+        downloadListing(last_downloaded.get(DbHelper.TABLE_LISTINGS));
+        downloadMatched(last_downloaded.get(DbHelper.TABLE_MATCHED));
 
 
         // get objects passed to sessioncache synchronously for testing purposes
@@ -56,8 +67,12 @@ public class SplashActivity extends AppCompatActivity {
             Log.e(TAG, "onCreate: DB Doesn't exist.");
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        // startActivity(intent);
+
+        boolean res = true;
+        for(boolean bool:downloadCompleted)
+            if(bool == false) res = false;
+
+
     }
 
     private void syncDebugTest() {
@@ -79,19 +94,34 @@ public class SplashActivity extends AppCompatActivity {
     private void downloadSeekers(String lastDownloaded){
         RequestParams params = new RequestParams();
 
-        //params.put("last_downloaded", lastDownloaded);
         params.put("timestamp", lastDownloaded);
 
         RESTClient.get("api/seekers", params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
+
+                downloadCompleted.add(true);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-                dbHelper.storeData(response, DbHelper.TABLE_SEEKERS);
+
+                if(!response.toString().equals("[]"))
+                    dbHelper.storeData(response, TABLE_SEEKERS);
+
+                downloadCompleted.add(true);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.i(TAG, "onFailure: Cannot reach route.");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.i(TAG, "onFailure: Cannot reach route.");
             }
         });
     }
@@ -105,12 +135,31 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
+
+                downloadCompleted.add(true);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-                dbHelper.storeData(response, DbHelper.TABLE_EMPLOYERS);
+
+                if(!response.toString().equals("[]"))
+                    dbHelper.storeData(response, DbHelper.TABLE_EMPLOYERS);
+
+                downloadCompleted.add(true);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
             }
         });
     }
@@ -118,12 +167,31 @@ public class SplashActivity extends AppCompatActivity {
     private void downloadLikeTable(String lastDownloaded){
         RequestParams params = new RequestParams();
 
-        params.put("last_downloaded", lastDownloaded);
+        params.put("timestamp", lastDownloaded);
         RESTClient.get("api/liketable", params, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.i(TAG, "onSuccess: " + response.toString());
+
+                downloadCompleted.add(true);
+            }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 dbHelper.storeData(response, DbHelper.TABLE_LIKES);
+
+                downloadCompleted.add(true);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
             }
         });
     }
@@ -131,12 +199,31 @@ public class SplashActivity extends AppCompatActivity {
     private void downloadListing(String lastDownloaded){
         RequestParams params = new RequestParams();
 
-        params.put("last_downloaded", lastDownloaded);
+        params.put("timestamp", lastDownloaded);
         RESTClient.get("api/listings", params, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.i(TAG, "onSuccess: " + response.toString());
+
+                downloadCompleted.add(true);
+            }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 dbHelper.storeData(response, DbHelper.TABLE_LISTINGS);
+
+                downloadCompleted.add(true);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
             }
         });
     }
@@ -144,19 +231,32 @@ public class SplashActivity extends AppCompatActivity {
     private void downloadMatched(String lastDownloaded){
         RequestParams params = new RequestParams();
 
-        //params.put("last_downloaded", lastDownloaded);
-        params.put("last_downloaded", 0);
+        params.put("timestamp", lastDownloaded);
 
         RESTClient.get("api/matched", params, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
+
+                downloadCompleted.add(true);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 dbHelper.storeData(response, DbHelper.TABLE_MATCHED);
+
+                downloadCompleted.add(true);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e(TAG, "onFailure: Cannot reach route.");
             }
         });
     }

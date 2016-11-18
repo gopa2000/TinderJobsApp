@@ -23,4 +23,8 @@ public class RESTClient {
         return BASE_URL + relativeUrl;
     }
 
+    public static String getURL(){
+        return BASE_URL;
+    }
+
 }
