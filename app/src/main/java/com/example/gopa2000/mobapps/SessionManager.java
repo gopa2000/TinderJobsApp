@@ -39,30 +39,8 @@ public class SessionManager {
     // Shared prefs keys
     private static final String IS_LOGGED_IN = "IsLoggedIn";
 
-    // common
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_TYPE = "type";
-    public static final String KEY_IMG = "img";
-    public static final String KEY_MOBNUM = "mobnum";
-    public static final String KEY_LIKES = "likes";
-    public static final String KEY_TAGS = "tags";
 
-    // seeker specific
-    public static final String KEY_FNAME = "fname";
-    public static final String KEY_LNAME = "lname";
-    public static final String KEY_SALUT = "salut";
-    public static final String KEY_WORKEXP = "workexp";
-    public static final String KEY_EDUCATION = "education";
-    public static final String KEY_SKILLS = "skills";
 
-    // employer specific
-    public static final String KEY_NAME = "name";
-    public static final String KEY_INFO = "info";
-
-    // listing specific
-    public static final String KEY_DESC = "jobdesc";
-    public static final String KEY_SKILLSREQ = "skillsreq";
-    public static final String KEY_OWNER = "owner";
 
     public SessionManager(Context context){
         this.context = context;
@@ -77,27 +55,28 @@ public class SessionManager {
 
             String userType = userDetails.getString("type");
 
-            editor.putString(KEY_TYPE, userType);
-            editor.putString(KEY_EMAIL, userDetails.getString("email"));
-            editor.putString(KEY_MOBNUM, userDetails.getString("mobnum"));
-            editor.putString(KEY_IMG, userDetails.getString("img"));
-            editor.putString(KEY_LIKES, userDetails.getString("likes"));
-            editor.putString(KEY_TAGS, userDetails.getString("tags"));
+            editor.putString(DbHelper.KEY_TYPE, userType);
+            editor.putString(DbHelper.KEY_EMAIL, userDetails.getString("email"));
+            editor.putString(DbHelper.KEY_MOBNUM, userDetails.getString("mobnum"));
+            editor.putString(DbHelper.KEY_IMG, userDetails.getString("img"));
+            editor.putString(DbHelper.KEY_LIKES, userDetails.getString("likes"));
+            editor.putString(DbHelper.KEY_TAGS, userDetails.getString("tags"));
+            editor.putString(DbHelper.KEY_DISLIKES, userDetails.getString("dislikes"));
 
             // seeker specific
             if(userType.equals("seeker")){
-                editor.putString(KEY_SKILLS, userDetails.getString("skills"));
-                editor.putString(KEY_WORKEXP, userDetails.getString("workexp"));
-                editor.putString(KEY_EDUCATION, userDetails.getString("education"));
-                editor.putString(KEY_FNAME, userDetails.getString("fname"));
-                editor.putString(KEY_LNAME, userDetails.getString("lnmae"));
-                editor.putString(KEY_SALUT, userDetails.getString("salut"));
+                editor.putString(DbHelper.KEY_SKILLS, userDetails.getString("skills"));
+                editor.putString(DbHelper.KEY_WORKEXP, userDetails.getString("workexp"));
+                editor.putString(DbHelper.KEY_EDUCATION, userDetails.getString("education"));
+                editor.putString(DbHelper.KEY_FNAME, userDetails.getString("fname"));
+                editor.putString(DbHelper.KEY_LNAME, userDetails.getString("lnmae"));
+                editor.putString(DbHelper.KEY_SALUT, userDetails.getString("salut"));
             }
 
             // employer specific
             else if(userType.equals("employer")){
-                editor.putString(KEY_INFO, userDetails.getString("info"));
-                editor.putString(KEY_NAME, userDetails.getString("name"));
+                editor.putString(DbHelper.KEY_INFO, userDetails.getString("info"));
+                editor.putString(DbHelper.KEY_NAME, userDetails.getString("name"));
             }
 
 
@@ -123,7 +102,7 @@ public class SessionManager {
         HashMap<String, String> user = new HashMap<String,String>();
 
         //email
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put(DbHelper.KEY_EMAIL, pref.getString(DbHelper.KEY_EMAIL, null));
 
         return user;
     }
