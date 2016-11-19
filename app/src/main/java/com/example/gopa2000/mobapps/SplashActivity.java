@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
         downloadCompleted = new ArrayList<>();
 
-        //sessionManager.logoutUser();
+        sessionManager.logoutUser();
 
         Hashtable<String, String> last_downloaded = dbHelper.getLastDownloaded();
 
@@ -59,7 +59,6 @@ public class SplashActivity extends AppCompatActivity {
         downloadLikeTable(last_downloaded.get(DbHelper.TABLE_LIKES));
         downloadListing(last_downloaded.get(DbHelper.TABLE_LISTINGS));
         downloadMatched(last_downloaded.get(DbHelper.TABLE_MATCHED));
-
 
         // get objects passed to sessioncache synchronously for testing purposes
         // syncDebugTest();

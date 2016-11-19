@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     // queries for a typo
 
     // db config
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 15;
     public static final String DB_NAME              = "AppDb";
     public static final String TABLE_LISTINGS       = "Listings";
     public static final String TABLE_EMPLOYERS      = "Employers";
@@ -63,7 +63,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     // listing specific
     public static final String KEY_DESC         = "jobdesc";
-    public static final String KEY_SKILLSREQ    = "skillsreq";
+    public static final String KEY_SKILLSREQ    = "skillsReq";
     public static final String KEY_OWNER        = "owner";
     public static final String KEY_JOBTITLE     = "jobTitle";
     public static final String KEY_EXPREQ       = "expRequired";
@@ -107,9 +107,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
         Log.d(TAG, "onCreate: " + "Create TABLE " + TABLE_LISTINGS + ".");
         CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LISTINGS + "(" +
-                KEY_DESC + " TEXT PRIMARY KEY, " + KEY_TAGS + " TEXT," +
-                KEY_OWNER + " TEXT, " + KEY_SKILLSREQ +" TEXT " +
-                KEY_JOBTITLE + " TEXT)";
+                KEY_DESC + " TEXT, " + KEY_TAGS + " TEXT," +
+                KEY_OWNER + " TEXT, " + KEY_SKILLSREQ +" TEXT, " +
+                KEY_JOBTITLE + " TEXT, " + KEY_EXPREQ + " TEXT)";
 
         db.execSQL(CREATE_TABLE);
 
@@ -306,14 +306,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
         try(Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
 
-            String desc         = cursor.getString(0);
-            String tags         = cursor.getString(1);
-            String owner        = cursor.getString(2);
-            String skillsreq    = cursor.getString(3);
-            String jobtitle     = cursor.getString(4);
-            String expreq       = cursor.getString(5);
+            while(cursor.moveToNext()) {
+                String desc = cursor.getString(0);
+                String tags = cursor.getString(1);
+                String owner = cursor.getString(2);
+                String skillsreq = cursor.getString(3);
+                String jobtitle = cursor.getString(4);
+                String expreq = cursor.getString(5);
 
-            result.add(new JobListingClass(owner, desc, skillsreq, tags, jobtitle, expreq));
+                result.add(new JobListingClass(owner, desc, skillsreq, tags, jobtitle, expreq));
+            }
         }
 
         return result;
@@ -327,15 +329,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
         try(Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
 
-            String name         = cursor.getString(0);
-            String email        = cursor.getString(1);
-            String img          = cursor.getString(2);
-            String mobnum       = cursor.getString(3);
-            String info         = cursor.getString(4);
-            String likes        = cursor.getString(5);
-            String dislikes     = cursor.getString(6);
+            while(cursor.moveToNext()) {
+                String name = cursor.getString(0);
+                String email = cursor.getString(1);
+                String img = cursor.getString(2);
+                String mobnum = cursor.getString(3);
+                String info = cursor.getString(4);
+                String likes = cursor.getString(5);
+                String dislikes = cursor.getString(6);
 
-            result.add(new EmployerClass(name, img, info, mobnum, email, likes, dislikes));
+                result.add(new EmployerClass(name, img, info, mobnum, email, likes, dislikes));
+            }
         }
 
         return result;
