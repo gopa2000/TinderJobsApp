@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,12 @@ public class CardSwipeAdapter extends ArrayAdapter<CustomCard>{
     private static class ViewHolder {
         public TextView fname;
         public TextView lname;
+        public TextView age;
+        public TextView industry;
+        public TextView exp;
+        public TextView edu;
+        public TextView skills;
+
     }
 
     public CardSwipeAdapter(Context context, ArrayList<CustomCard> cards){
@@ -36,14 +44,22 @@ public class CardSwipeAdapter extends ArrayAdapter<CustomCard>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.card_layout, parent, false);
 
-            //viewHolder.fname = (TextView) convertView.findViewById(R.id.textView2);
-            //viewHolder.lname = (TextView) convertView.findViewById(R.id.textView3);
+            viewHolder.fname = (TextView) convertView.findViewById(R.id.textcard_fname);
+            viewHolder.lname = (TextView) convertView.findViewById(R.id.textcard_lname);
+            viewHolder.age = (TextView) convertView.findViewById(R.id.textcard_edu);
+            viewHolder.industry = (TextView) convertView.findViewById(R.id.textcard_industry);
+            viewHolder.exp = (TextView) convertView.findViewById(R.id.textcard_exp);
+            viewHolder.edu = (TextView) convertView.findViewById(R.id.textcard_edu);
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //viewHolder.fname.setText(((SeekerClass)card).getFname());
-        //viewHolder.lname.setText(((SeekerClass)card).getLname());
+        viewHolder.fname.setText(((SeekerClass)card).getFname());
+        viewHolder.lname.setText(((SeekerClass)card).getLname());
+        viewHolder.industry.setText(((SeekerClass)card).getTags());
+        viewHolder.exp.setText(((SeekerClass)card).getWorkExp());
+        viewHolder.edu.setText(((SeekerClass)card).getEducation());
 
         return convertView;
     }

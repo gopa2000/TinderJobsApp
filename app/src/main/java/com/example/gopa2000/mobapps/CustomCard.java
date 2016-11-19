@@ -5,5 +5,8 @@ package com.example.gopa2000.mobapps;
  */
 
 public abstract class CustomCard {
+
     public CustomCard(){}
+
+    public String getEmail(){ return ""; };
 }

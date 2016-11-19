@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
  * Created by Puru on 11/13/2016.
  */
 
-public class EmployerClass {
+public class EmployerClass extends CustomCard{
     private String companyName;
     private String imgToUpload;
     private String companyInfo;
@@ -44,6 +44,7 @@ public class EmployerClass {
         return contactNumber;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }

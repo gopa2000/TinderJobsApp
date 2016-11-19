@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     // queries for a typo
 
     // db config
-    private static final int DB_VERSION = 15;
+    private static final int DB_VERSION = 16;
     public static final String DB_NAME              = "AppDb";
     public static final String TABLE_LISTINGS       = "Listings";
     public static final String TABLE_EMPLOYERS      = "Employers";
@@ -352,9 +352,25 @@ public class DbHelper extends SQLiteOpenHelper {
         String SELECT_QUERY = "SELECT * FROM LikeTable WHERE type=like";
 
         try (Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
-            result.put(cursor.getString(0), cursor.getString(1));
+
+            while(cursor.moveToNext()) {
+                result.put(cursor.getString(1), cursor.getString(2));
+            }
         }
 
+        return result;
+    }
+
+    public String getCompanyEmail(String compname){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String SELECT_QUERY = "SELECT " + KEY_EMAIL + " FROM Employers WHERE " + KEY_NAME + " like \'" + compname + "\';";
+
+        String result = "null";
+        try(Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
+            while(cursor.moveToNext()) {
+                result = cursor.getString(0);
+            }
+        }
         return result;
     }
 }

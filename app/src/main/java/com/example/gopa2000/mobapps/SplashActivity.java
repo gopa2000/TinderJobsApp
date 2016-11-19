@@ -176,8 +176,8 @@ public class SplashActivity extends AppCompatActivity {
     private void downloadLikeTable(String lastDownloaded){
         RequestParams params = new RequestParams();
 
-        params.put("timestamp", lastDownloaded);
-        RESTClient.get("api/liketable", params, new JsonHttpResponseHandler(){
+        //params.put("timestamp", lastDownloaded);
+        RESTClient.get("api/likes", params, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -1,5 +1,7 @@
 package com.example.gopa2000.mobapps;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class JobListingClass extends CustomCard {
     private String jobTitle;
     private String expRequired;
 
+    public Context context;
+
     public JobListingClass(String companyName, String jobDescription, String skillsRequired, String tags, String jobTitle, String expRequired) {
         this.companyName = companyName;
         this.jobDescription = jobDescription;
@@ -23,6 +27,7 @@ public class JobListingClass extends CustomCard {
         this.tags = tags;
         this.jobTitle = jobTitle;
         this.expRequired = expRequired;
+
     }
 
     public String getCompanyName() {
@@ -59,5 +64,11 @@ public class JobListingClass extends CustomCard {
 
     public String getExpRequired() {
         return expRequired;
+    }
+
+    public String getOwnerEmail(Context context){
+        this.context = context.getApplicationContext();
+        DbHelper dbHelper = new DbHelper(context);
+        return dbHelper.getCompanyEmail(companyName);
     }
 }
