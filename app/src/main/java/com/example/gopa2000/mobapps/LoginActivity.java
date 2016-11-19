@@ -1,5 +1,6 @@
 package com.example.gopa2000.mobapps;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -161,6 +163,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         loginBtn.setEnabled(true);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("success", "true");
+
+        Log.d(TAG, "onLoginSuccess: " + getParent());
+
+        if (getParent() == null) {
+            setResult(Activity.RESULT_OK, returnIntent);
+        } else {
+            getParent().setResult(Activity.RESULT_OK, returnIntent);
+        }
         finish();
     }
 

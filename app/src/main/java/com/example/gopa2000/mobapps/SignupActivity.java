@@ -1,14 +1,6 @@
 package com.example.gopa2000.mobapps;
 
-import android.content.DialogInterface;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -17,10 +9,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,26 +26,33 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import java.io.File;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
-    private static final int PICK_FROM_CAMERA=1;
-    private static final int PICK_FROM_FILE=2;
 
-    private Uri imageCaptureUri;
-    private ImageView mImageView;
-    Button btn_choose_image;
-    private EditText nameInput;
-    private EditText _addressText;
+    private SessionManager sessionManager;
+
+    private EditText fnameInput;
+    private EditText lnameInput;
     private EditText _emailText;
     private EditText _mobileText;
     private EditText _passwordText;
     private EditText _reEnterPasswordText;
     private Button _signupButton;
     private TextView _loginLink;
+    private EditText eduInput;
+
     private Button btn_edu_add_line;
     private LinearLayout parent_layout_edu;
     private Button btn_exp_add_line;
@@ -74,44 +71,16 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        final String[] items = new String[] {"From Camera", "From Gallery"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item,items);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Image");
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                if(which==0){
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File file = new File(Environment.getExternalStorageDirectory(), "tmp_avatar" + String.valueOf(System.currentTimeMillis())+".jpg");
-                    imageCaptureUri=Uri.fromFile(file);
-                    try{
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageCaptureUri);
-                        intent.putExtra("return data", true);
+        sessionManager = new SessionManager(getApplicationContext());
 
-                        startActivityForResult(intent,PICK_FROM_CAMERA);
-                    } catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-                    dialog.cancel();
-                }else{
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent,"Complete action using"),PICK_FROM_FILE);
-                }
-            }
-        });
-
-        final AlertDialog dialog = builder.create();
-        mImageView = (ImageView) findViewById(R.id.img_show);
-        btn_choose_image = (Button) findViewById(R.id.btn_choose_image);
-        btn_choose_image.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                dialog.show();
-            }
-        });
+        fnameInput = (EditText) findViewById(R.id.input_fname);
+        lnameInput = (EditText) findViewById(R.id.input_lname);
+        _emailText = (EditText) findViewById(R.id.input_email);
+        _mobileText = (EditText) findViewById(R.id.input_mobile);
+        _passwordText = (EditText) findViewById(R.id.input_password);
+        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+        _signupButton = (Button) findViewById(R.id.btn_signup);
+        eduInput = (EditText) findViewById(R.id.input_education);
 
         btn_edu_add_line=(Button)findViewById(R.id.btn_edu_addline);
         parent_layout_edu = (LinearLayout)findViewById(R.id.p_edu_layout);
@@ -151,7 +120,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        /*_signupButton.setOnClickListener(new View.OnClickListener() {
+        _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signup();
@@ -162,48 +131,14 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(),SplashActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
-        });*/
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode!=RESULT_OK){
-            return;
-        }
-        Bitmap bitmap = null;
-        String path = "";
-        if(requestCode==PICK_FROM_FILE){
-            imageCaptureUri=data.getData();
-            path=getRealPathFromURI(imageCaptureUri);
-            if(path==null){
-                path=imageCaptureUri.getPath();
-            }
-            if(path!=null){
-                bitmap = BitmapFactory.decodeFile(path);
-            }
-        }else{
-            path=imageCaptureUri.getPath();
-            bitmap=BitmapFactory.decodeFile(path);
-        }
-        Log.d(TAG, path);
-        mImageView.setImageBitmap(bitmap);
-    }
-
-    public String getRealPathFromURI(Uri contentURI){
-        String[] proj={MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(contentURI, proj, null, null, null);
-        if(cursor==null){
-            return null;
-        }
-        int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
+        });
     }
 
     protected void createEditTextViewEdu() {
@@ -278,7 +213,7 @@ public class SignupActivity extends AppCompatActivity {
         parent_layout_skills.addView(edittTxt);
     }
 
-    /*public void signup() {
+    public void signup() {
         Log.d(TAG, "Signup");
 
         if (!validate()) {
@@ -291,25 +226,94 @@ public class SignupActivity extends AppCompatActivity {
 
         progressDialog = ProgressDialog.show(this, "", "Authenicating...", true, false);
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
+        String fname = fnameInput.getText().toString();
+        String lname = lnameInput.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
+        String education = eduInput.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        String skills = "[";
+        String workExp = "[";
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
+        // TODO: 11/19/16 IMPLEMENT TAG AND IMAGE
+        String tags = "";
+
+        // done using Util.encodeTobase64(Bitmap img);
+        String img = "";
+
+
+        boolean first = true;
+        for(EditText skill : seeker_skills){
+            if(first) { first = false; }
+            else skills += ",";
+            skills += skill.getText().toString();
+        }
+        skills += "]";
+
+        first = true;
+        for(EditText work : seeker_exp) {
+            if(first) { first = false; }
+            else workExp += ",";
+
+            workExp += work.getText().toString();
+        }
+        workExp += "]";
+
+        RequestParams rp = new RequestParams();
+        rp.add("salut", "");
+        rp.add("fname", fname);
+        rp.add("lname", lname);
+        rp.add("img", "");
+        rp.add("education", education);
+        rp.add("workexp", workExp);
+        rp.add("skills", skills);
+        rp.add("mobnum", mobile);
+        rp.add("email", email);
+        rp.add("password", password);
+        rp.add("tags", tags);
+
+        RESTClient.post("api/seeker", rp, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    String reqResult = response.getString("success");
+                    if (reqResult.equals("true")) {
+                        sessionManager.createLoginSession(response);
+
+                        Log.i(TAG, "onSuccess: " + response.toString());
                         onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
+                    } else {
+                        onSignupFailed();
                     }
-                }, 3000);
+                    progressDialog.dismiss();
+                } catch (JSONException e) {
+                    Log.e(TAG, "onSuccess: " + e.getStackTrace().toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
+                try {
+                    JSONObject response = responseArray.getJSONObject(0);
+
+                    String reqResult = response.getString("success");
+                    if (reqResult.equals("true")) {
+                        sessionManager.createLoginSession(response);
+
+                        Log.i(TAG, "onSuccess: " + response.toString());
+                        onSignupSuccess();
+                    } else {
+                        onSignupFailed();
+                    }
+                    progressDialog.dismiss();
+                } catch (JSONException e) {
+                    Log.e(TAG, "onSuccess: " + e.getStackTrace().toString());
+                }
+            }
+        });
+
     }
 
 
@@ -328,27 +332,18 @@ public class SignupActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
+        String name = fnameInput.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+            fnameInput.setError("at least 3 characters");
             valid = false;
         } else {
-            _nameText.setError(null);
+            fnameInput.setError(null);
         }
-
-        if (address.isEmpty()) {
-            _addressText.setError("Enter Valid Address");
-            valid = false;
-        } else {
-            _addressText.setError(null);
-        }
-
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
@@ -379,6 +374,5 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return valid;
-    }*/
-
+    }
 }

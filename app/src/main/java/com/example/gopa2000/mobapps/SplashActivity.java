@@ -1,5 +1,6 @@
 package com.example.gopa2000.mobapps;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -43,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
         downloadCompleted = new ArrayList<>();
 
-     //   sessionManager.logoutUser();
+        //sessionManager.logoutUser();
 
         Hashtable<String, String> last_downloaded = dbHelper.getLastDownloaded();
 
@@ -150,8 +151,15 @@ public class SplashActivity extends AppCompatActivity {
 
                 downloadCompleted.add(true);
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                if(!sessionManager.isLoggedIn()){
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivityForResult(intent, 1);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -261,6 +269,18 @@ public class SplashActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure: Cannot reach route.");
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.i(TAG, "onActivityResult: Reached - " + requestCode + " " + resultCode);
+
+        // bit of a hack, since resultCode was always 0 (no clue why).
+        // trusting loginActivity to not finish() without legitimate authentication
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
     }
 
 }

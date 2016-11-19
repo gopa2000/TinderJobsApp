@@ -1,5 +1,6 @@
 package com.example.gopa2000.mobapps;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +28,7 @@ public class SessionManager {
 
     // context
     Context context;
+    Activity activity;
 
     // Shared pref mode
     int PRIVATE_MODE = 0;
@@ -111,10 +113,13 @@ public class SessionManager {
 
     public void checkLogin(){
         if(!this.isLoggedIn()){
-            Intent intent = new Intent(context, LoginActivity.class);
+            Intent intent = new Intent(activity, LoginActivity.class);
+
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+
+
+            activity.startActivityForResult(intent, 1);
         }
     }
 
@@ -122,4 +127,5 @@ public class SessionManager {
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGGED_IN, false);
     }
+
 }

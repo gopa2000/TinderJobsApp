@@ -34,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.checkLogin();
 
+        sessionManager = new SessionManager(getApplicationContext());
+
+        /*
+        sessionManager.checkLogin();
+*/
         // Connect to background socket
         Intent serviceIntent = new Intent(MainActivity.this, SocketListener.class);
         startService(serviceIntent);
@@ -54,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
 
 
-        /*if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
+        if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
             sessionCache.setSessionCards(dbHelper.getSeekers());
         else
-            sessionCache.setSessionCards(dbHelper.getListings());*/
+            sessionCache.setSessionCards(dbHelper.getListings());
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
