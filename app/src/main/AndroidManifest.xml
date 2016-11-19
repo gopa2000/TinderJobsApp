@@ -3,6 +3,8 @@
     package="com.example.gopa2000.mobapps">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,10 +35,6 @@
             android:name=".SocketListener"
             android:enabled="true"
             android:exported="false"></service>
-        <activity
-            android:name=".CardLayoutTester"
-            android:label="@string/title_activity_card_layout_tester"
-            android:theme="@style/AppTheme" />
         <activity android:name=".CreateListing" />
         <activity android:name=".FullScreenCardLayout" />
         <activity android:name=".FullScreenCardLayoutListing" />

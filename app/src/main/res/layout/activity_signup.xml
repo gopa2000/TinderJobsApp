@@ -11,36 +11,26 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="56dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/img_show"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_width="175dp"
+            android:layout_height="205dp" />
+
+        <Button
+            android:id="@+id/btn_choose_image"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
+            android:text="Select Image"
             android:gravity="center"
-            android:padding="5dp" >
-
-            <Button
-                android:id="@+id/btnSelectPhoto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Select Photo" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp" >
-
-            <ImageView
-                android:id="@+id/ivImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:textSize="16dp"
+            android:textColor="#009A9A"
+            android:layout_weight="0.14" />
 
         <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
