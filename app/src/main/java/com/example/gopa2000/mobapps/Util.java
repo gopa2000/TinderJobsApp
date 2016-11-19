@@ -28,7 +28,7 @@ public class Util {
         return "";
     }
 
-    public static Bitmap decodeBase64(String input) throws Exception {
+    public static Bitmap decodeBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         try
         {

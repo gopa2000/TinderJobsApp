@@ -12,13 +12,19 @@ public class EmployerClass {
     private String companyInfo;
     private String contactNumber;
     private String email;
+    private String likes;
+    private String dislikes;
+    private String img;
 
-    public EmployerClass(String companyName, Bitmap imgToUpload, String companyInfo, String contactNumber, String email){
+    public EmployerClass(String companyName, String imgToUpload, String companyInfo, String contactNumber, String email, String likes, String dislikes){
         this.companyName = companyName;
-        this.imgToUpload = (imgToUpload != null ? Util.encodeTobase64(imgToUpload) : null);
+        //this.img = (imgToUpload != null ? Util.decodeBase64(imgToUpload) : null);
+        this.imgToUpload = img;
         this.companyInfo = companyInfo;
         this.contactNumber = contactNumber;
         this.email = email;
+        this.likes = likes;
+        this.dislikes = dislikes;
     }
 
 
@@ -40,5 +46,13 @@ public class EmployerClass {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getLikes() {
+        return likes;
+    }
+
+    public String getDislikes() {
+        return dislikes;
     }
 }

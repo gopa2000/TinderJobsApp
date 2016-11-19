@@ -9,26 +9,20 @@ import java.util.ArrayList;
  */
 
 public class JobListingClass extends CustomCard {
-    private String logoToUpload;
     private String companyName;
     private String jobDescription;
     private String skillsRequired;
     private String tags;
+    private String jobTitle;
+    private String expRequired;
 
-    public JobListingClass(Bitmap logoToUpload, String companyName, ArrayList<String> jobDescription, ArrayList<String> skillsRequired, String tags){
-        this.logoToUpload = (logoToUpload != null ? Util.encodeTobase64(logoToUpload) : null);
+    public JobListingClass(String companyName, String jobDescription, String skillsRequired, String tags, String jobTitle, String expRequired) {
         this.companyName = companyName;
-        this.jobDescription = Util.listToString(jobDescription);
-        this.skillsRequired = Util.listToString(skillsRequired);
+        this.jobDescription = jobDescription;
+        this.skillsRequired = skillsRequired;
         this.tags = tags;
-    }
-
-    public String getLogoToUpload() {
-        return logoToUpload;
-    }
-
-    public void setLogoToUpload(String logoToUpload) {
-        this.logoToUpload = logoToUpload;
+        this.jobTitle = jobTitle;
+        this.expRequired = expRequired;
     }
 
     public String getCompanyName() {
@@ -53,5 +47,17 @@ public class JobListingClass extends CustomCard {
 
     public void setSkillsRequired(String skillsRequired) {
         this.skillsRequired = skillsRequired;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public String getExpRequired() {
+        return expRequired;
     }
 }

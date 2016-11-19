@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
@@ -267,27 +269,87 @@ public class DbHelper extends SQLiteOpenHelper {
         db.update(TABLE_LASTMODIFIED, values, where, whereArgs);
     }
 
-    public ArrayList<SeekerClass> getSeekers(){
-        ArrayList<SeekerClass> result = new ArrayList<>();
+    public ArrayList<CustomCard> getSeekers(){
+        ArrayList<CustomCard> result = new ArrayList<>();
 
-        String SELECT_QUERY = "SELECT * FROM Seekers;";
         SQLiteDatabase db = this.getReadableDatabase();
+        String SELECT_QUERY = "SELECT * FROM Seekers;";
 
-        try (Cursor cursor = db.rawQuery(SELECT_QUERY, null){
-            
+        try (Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
+            while(cursor.moveToNext()){
+
+                String salut        = cursor.getString(0);
+                String fname        = cursor.getString(1);
+                String lname        = cursor.getString(2);
+                String email        = cursor.getString(3);
+                String education    = cursor.getString(4);
+                String img          = cursor.getString(5);
+                String workexp      = cursor.getString(6);
+                String mobnum       = cursor.getString(7);
+                String tags         = cursor.getString(8);
+                String likes        = cursor.getString(9);
+                String dislikes     = cursor.getString(10);
+                String skills       = cursor.getString(11);
+
+                result.add(new SeekerClass(salut, fname, lname, img, education, workexp , skills, mobnum, email, tags, likes, dislikes));
+            }
         };
 
         return result;
     }
 
-    public ArrayList<JobListingClass> getListings(){
-        ArrayList<JobListingClass> result = new ArrayList<>();
+    public ArrayList<CustomCard> getListings(){
+        ArrayList<CustomCard> result = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String SELECT_QUERY = "SELECT * FROM Listings;";
+
+        try(Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
+
+            String desc         = cursor.getString(0);
+            String tags         = cursor.getString(1);
+            String owner        = cursor.getString(2);
+            String skillsreq    = cursor.getString(3);
+            String jobtitle     = cursor.getString(4);
+            String expreq       = cursor.getString(5);
+
+            result.add(new JobListingClass(owner, desc, skillsreq, tags, jobtitle, expreq));
+        }
 
         return result;
     }
 
     public ArrayList<EmployerClass> getEmployers(){
         ArrayList<EmployerClass> result = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String SELECT_QUERY = "SELECT * FROM Employers";
+
+        try(Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
+
+            String name         = cursor.getString(0);
+            String email        = cursor.getString(1);
+            String img          = cursor.getString(2);
+            String mobnum       = cursor.getString(3);
+            String info         = cursor.getString(4);
+            String likes        = cursor.getString(5);
+            String dislikes     = cursor.getString(6);
+
+            result.add(new EmployerClass(name, img, info, mobnum, email, likes, dislikes));
+        }
+
+        return result;
+    }
+
+    public HashMap<String, String> getLiketable(){
+        HashMap<String, String> result = new HashMap<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String SELECT_QUERY = "SELECT * FROM LikeTable WHERE type=like";
+
+        try (Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
+            result.put(cursor.getString(0), cursor.getString(1));
+        }
 
         return result;
     }

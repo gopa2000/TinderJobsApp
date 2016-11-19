@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -17,9 +18,6 @@ import static android.content.ContentValues.TAG;
  */
 
 public class SessionManager {
-
-    // Session Cache
-    private static SessionCache sessionCache = new SessionCache();
 
     // Shared Preferences
     SharedPreferences pref;
@@ -56,32 +54,39 @@ public class SessionManager {
             String userType = userDetails.getString("type");
 
             editor.putString(DbHelper.KEY_TYPE, userType);
-            editor.putString(DbHelper.KEY_EMAIL, userDetails.getString("email"));
-            editor.putString(DbHelper.KEY_MOBNUM, userDetails.getString("mobnum"));
-            editor.putString(DbHelper.KEY_IMG, userDetails.getString("img"));
-            editor.putString(DbHelper.KEY_LIKES, userDetails.getString("likes"));
-            editor.putString(DbHelper.KEY_TAGS, userDetails.getString("tags"));
-            editor.putString(DbHelper.KEY_DISLIKES, userDetails.getString("dislikes"));
+            editor.putString(DbHelper.KEY_EMAIL, userDetails.getJSONObject("info").getString("email"));
+            editor.putString(DbHelper.KEY_MOBNUM, userDetails.getJSONObject("info").getString("mobnum"));
+            editor.putString(DbHelper.KEY_IMG, userDetails.getJSONObject("info").getString("img"));
+            editor.putString(DbHelper.KEY_LIKES, userDetails.getJSONObject("info").getString("likes"));
+            editor.putString(DbHelper.KEY_TAGS, userDetails.getJSONObject("info").getString("tags"));
+            editor.putString(DbHelper.KEY_DISLIKES, userDetails.getJSONObject("info").getString("dislikes"));
 
             // seeker specific
             if(userType.equals("seeker")){
-                editor.putString(DbHelper.KEY_SKILLS, userDetails.getString("skills"));
-                editor.putString(DbHelper.KEY_WORKEXP, userDetails.getString("workexp"));
-                editor.putString(DbHelper.KEY_EDUCATION, userDetails.getString("education"));
-                editor.putString(DbHelper.KEY_FNAME, userDetails.getString("fname"));
-                editor.putString(DbHelper.KEY_LNAME, userDetails.getString("lnmae"));
-                editor.putString(DbHelper.KEY_SALUT, userDetails.getString("salut"));
+                editor.putString(DbHelper.KEY_SKILLS, userDetails.getJSONObject("info").getString("skills"));
+                editor.putString(DbHelper.KEY_WORKEXP, userDetails.getJSONObject("info").getString("workexp"));
+                editor.putString(DbHelper.KEY_EDUCATION, userDetails.getJSONObject("info").getString("education"));
+                editor.putString(DbHelper.KEY_FNAME, userDetails.getJSONObject("info").getString("fname"));
+                editor.putString(DbHelper.KEY_LNAME, userDetails.getJSONObject("info").getString("lname"));
+                editor.putString(DbHelper.KEY_SALUT, userDetails.getJSONObject("info").getString("salut"));
             }
 
             // employer specific
             else if(userType.equals("employer")){
-                editor.putString(DbHelper.KEY_INFO, userDetails.getString("info"));
-                editor.putString(DbHelper.KEY_NAME, userDetails.getString("name"));
+                editor.putString(DbHelper.KEY_INFO, userDetails.getJSONObject("info").getString("info"));
+                editor.putString(DbHelper.KEY_NAME, userDetails.getJSONObject("info").getString("name"));
             }
 
 
             // commit changes
             editor.commit();
+
+            Map<String, ?> prefTest = pref.getAll();
+
+            for(Map.Entry<String, ?> entry : prefTest.entrySet()){
+                Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+            }
+
         } catch (JSONException e){
             Log.e(TAG, "createLoginSession: ", e);
         }
@@ -98,11 +103,8 @@ public class SessionManager {
         context.startActivity(intent);
     }
 
-    public HashMap<String,String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<String,String>();
-
-        //email
-        user.put(DbHelper.KEY_EMAIL, pref.getString(DbHelper.KEY_EMAIL, null));
+    public Map<String,?> getUserDetails(){
+        Map<String,?> user = pref.getAll();
 
         return user;
     }
@@ -119,9 +121,5 @@ public class SessionManager {
     // get login state
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGGED_IN, false);
-    }
-
-    public SessionCache getSessionCache(){
-        return SessionManager.sessionCache;
     }
 }

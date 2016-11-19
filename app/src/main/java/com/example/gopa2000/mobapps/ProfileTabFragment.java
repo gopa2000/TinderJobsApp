@@ -13,6 +13,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileTabFragment extends Fragment {
 
@@ -25,13 +26,13 @@ public class ProfileTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile_tab, container, false);
-
+/*
         sessionManager = new SessionManager(getActivity().getApplicationContext());
-        HashMap<String,String> userDetails = sessionManager.getUserDetails();
+        Map<String,?> userDetails = sessionManager.getUserDetails();
 
         textView = (TextView) view.findViewById(R.id.textView);
-        textView.setText(userDetails.get(DbHelper.KEY_EMAIL));
-
+        textView.setText(userDetails.get(DbHelper.KEY_EMAIL).toString());
+*/
         button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
