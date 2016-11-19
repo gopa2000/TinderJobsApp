@@ -8,16 +8,9 @@ import java.util.ArrayList;
 
 public class SessionCache {
 
-    private static SessionCache instance = new SessionCache();
-
-
     private ArrayList<CustomCard> sessionCards;
 
-    public static SessionCache getInstance(){
-        return instance;
-    }
-
-    private SessionCache(){
+    public SessionCache(){
         this.sessionCards = new ArrayList<>();
     }
 

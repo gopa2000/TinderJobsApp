@@ -2,6 +2,7 @@ package com.example.gopa2000.mobapps;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-
     }
 
     @Override
@@ -68,39 +77,80 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void login(){
-        if(!validate()) {
+    public void login() {
+        if (!validate()) {
             onLoginFailed();
-            return ;
+            return;
         }
 
         loginBtn.setEnabled(false);
         final ProgressDialog progressDialog;
 
-        progressDialog = ProgressDialog.show(this, "", "Authenicating...", true, false);
+        progressDialog = ProgressDialog.show(this, "", "Authenticating...", true, false);
 
-        String email = emailInput.getText().toString();
-        String password = emailInput.getText().toString();
+        final String email = emailInput.getText().toString();
+        final String password = passwordInput.getText().toString();
 
         boolean flag = false;
 
-        // Authentication Logic
-        if(email.equals("gaand@danda.com"))
-            flag = true;
+        // for testing purposes
+        if (email.equals("gaand@danda.com")) {
+            try {
+                sessionManager.createLoginSession(new JSONObject("{email: gaand@danda.com}"));
+                onLoginSuccess();
+            } catch (JSONException e) {
+                Log.e(TAG, "login: ", e);
+            }
+        } else {
 
-        final boolean finFlag = flag;
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        if(finFlag)
+            RequestParams rp = new RequestParams();
+            rp.add("email", email);
+            rp.add("password", password);
+
+            Log.i(TAG, "run: " + email + "," + password);
+
+            // callback in the JsonHttpResponseHandler object to implement authentication logic
+            RESTClient.post("login/", rp, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        String reqResult = response.getString("success");
+                        if (reqResult.equals("true")) {
+                            sessionManager.createLoginSession(response);
+
+                            Log.i(TAG, "onSuccess: " + response.toString());
                             onLoginSuccess();
-                        else
+                        } else {
                             onLoginFailed();
+                        }
                         progressDialog.dismiss();
+                    } catch (JSONException e) {
+                        Log.e(TAG, "onSuccess: " + e.getStackTrace().toString());
                     }
-                }, 3000);
+                }
 
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
+                    try {
+                        JSONObject response = responseArray.getJSONObject(0);
+
+                        String reqResult = response.getString("success");
+                        if (reqResult.equals("true")) {
+                            sessionManager.createLoginSession(response);
+
+                            Log.i(TAG, "onSuccess: " + response.toString());
+                            onLoginSuccess();
+                        } else {
+                            onLoginFailed();
+                        }
+                        progressDialog.dismiss();
+                    } catch (JSONException e) {
+                        Log.e(TAG, "onSuccess: " + e.getStackTrace().toString());
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -111,12 +161,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         loginBtn.setEnabled(true);
-        sessionManager.createLoginSession(emailInput.getText().toString());
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), emailInput.getText().toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Authentication failed.", Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 

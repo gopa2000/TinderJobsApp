@@ -30,7 +30,7 @@ public class ProfileTabFragment extends Fragment {
         HashMap<String,String> userDetails = sessionManager.getUserDetails();
 
         textView = (TextView) view.findViewById(R.id.textView);
-        textView.setText(userDetails.get(SessionManager.KEY_EMAIL));
+        textView.setText(userDetails.get(DbHelper.KEY_EMAIL));
 
         button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener(){

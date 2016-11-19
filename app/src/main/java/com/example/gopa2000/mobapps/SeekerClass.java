@@ -23,8 +23,9 @@ public class SeekerClass extends CustomCard{
     private String skills;
     private String mobNumber;
     private String email;
+    private String tags;
 
-    public SeekerClass(String salutation, String fname, String lname, Bitmap imgToUpload, String education, String workExp, String skills, String mobNumber, String email){
+    public SeekerClass(String salutation, String fname, String lname, Bitmap imgToUpload, String education, String workExp, String skills, String mobNumber, String email, String tags){
         this.salutation = salutation;
         this.fname = fname;
         this.lname = lname;
@@ -34,6 +35,7 @@ public class SeekerClass extends CustomCard{
         this.skills = skills;
         this.mobNumber = mobNumber;
         this.email = email;
+        this.tags = tags;
     }
 
     public String getSalutation() { return salutation; }
@@ -69,4 +71,6 @@ public class SeekerClass extends CustomCard{
     public String getEmail() {
         return email;
     }
+
+    public String getTags() { return tags; }
 }

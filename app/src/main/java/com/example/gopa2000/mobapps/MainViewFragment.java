@@ -27,7 +27,7 @@ public class MainViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private SessionCache sessionCache;
+    private SessionManager sessionManager;
     private ArrayList<CustomCard> cards;
     private CardAdapter cardAdapter;
     private Button btn;
@@ -42,8 +42,8 @@ public class MainViewFragment extends Fragment {
 
         flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
-        sessionCache = SessionCache.getInstance();
-        cards = sessionCache.getSessionCards();
+        sessionManager = new SessionManager(getContext());
+        cards = sessionManager.getSessionCache().getSessionCards();
 
         // test card layout
         //CustomCardTest(view);
