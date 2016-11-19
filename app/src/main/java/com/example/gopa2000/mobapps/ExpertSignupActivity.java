@@ -1,20 +1,46 @@
 package com.example.gopa2000.mobapps;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
 public class ExpertSignupActivity extends AppCompatActivity {
+
+    private static final String TAG = "SignupActivity";
+
+    private SessionManager sessionManager;
+
+    private EditText cnameInput;
+    private EditText _emailText;
+    private EditText _contactEmailText;
+    private EditText _mobileText;
+    private EditText _passwordText;
+    private EditText _reEnterPasswordText;
+    private Button _signupButton;
+    private TextView _loginLink;
 
     private Button btn_info_add_line;
     private LinearLayout parent_layout_info;
@@ -63,5 +89,152 @@ public class ExpertSignupActivity extends AppCompatActivity {
         edittTxt.setFilters(fArray);
         comp_info.add(edittTxt);
         parent_layout_info.addView(edittTxt);
+    }
+
+    public void signup() {
+        Log.d(TAG, "Signup");
+
+        if (!validate()) {
+            onSignupFailed();
+            return;
+        }
+
+        _signupButton.setEnabled(false);
+        final ProgressDialog progressDialog;
+
+        progressDialog = ProgressDialog.show(this, "", "Authenticating...", true, false);
+
+        String cname = cnameInput.getText().toString();
+        String email = _emailText.getText().toString();
+        String contactemail = _contactEmailText.getText().toString();
+        String mobile = _mobileText.getText().toString();
+        String password = _passwordText.getText().toString();
+        String reEnterPassword = _reEnterPasswordText.getText().toString();
+
+        String compinfo = "[";
+
+        // TODO: 11/19/16 IMPLEMENT TAG AND IMAGE
+        String tags = "";
+
+        // done using Util.encodeTobase64(Bitmap img);
+        String img = "";
+
+
+        boolean first = true;
+        for(EditText companyinfo : comp_info){
+            if(first) { first = false; }
+            else compinfo += ",";
+            compinfo += companyinfo.getText().toString();
+        }
+        compinfo += "]";
+
+        RequestParams rp = new RequestParams();
+        rp.add("salut", "");
+        rp.add("name", cname);
+        rp.add("info", compinfo);
+        rp.add("mobnum", mobile);
+        rp.add("email", email);
+        rp.add("password", password);
+
+        RESTClient.post("api/seeker", rp, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    String reqResult = response.getString("success");
+                    if (reqResult.equals("true")) {
+                        sessionManager.createLoginSession(response);
+
+                        Log.i(TAG, "onSuccess: " + response.toString());
+                        onSignupSuccess();
+                    } else {
+                        onSignupFailed();
+                    }
+                    progressDialog.dismiss();
+                } catch (JSONException e) {
+                    Log.e(TAG, "onSuccess: " + e.getStackTrace().toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
+                try {
+                    JSONObject response = responseArray.getJSONObject(0);
+
+                    String reqResult = response.getString("success");
+                    if (reqResult.equals("true")) {
+                        sessionManager.createLoginSession(response);
+
+                        Log.i(TAG, "onSuccess: " + response.toString());
+                        onSignupSuccess();
+                    } else {
+                        onSignupFailed();
+                    }
+                    progressDialog.dismiss();
+                } catch (JSONException e) {
+                    Log.e(TAG, "onSuccess: " + e.getStackTrace().toString());
+                }
+            }
+        });
+
+    }
+
+
+    public void onSignupSuccess() {
+        _signupButton.setEnabled(true);
+        setResult(RESULT_OK, null);
+        finish();
+    }
+
+    public void onSignupFailed() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+
+        _signupButton.setEnabled(true);
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String name = cnameInput.getText().toString();
+        String email = _emailText.getText().toString();
+        String mobile = _mobileText.getText().toString();
+        String password = _passwordText.getText().toString();
+        String reEnterPassword = _reEnterPasswordText.getText().toString();
+
+        if (name.isEmpty() || name.length() < 3) {
+            cnameInput.setError("at least 3 characters");
+            valid = false;
+        } else {
+            cnameInput.setError(null);
+        }
+
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            _emailText.setError("enter a valid email address");
+            valid = false;
+        } else {
+            _emailText.setError(null);
+        }
+
+        if (mobile.isEmpty() || mobile.length()!=10) {
+            _mobileText.setError("Enter Valid Mobile Number");
+            valid = false;
+        } else {
+            _mobileText.setError(null);
+        }
+
+        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            valid = false;
+        } else {
+            _passwordText.setError(null);
+        }
+
+        if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
+            _reEnterPasswordText.setError("Password Do not match");
+            valid = false;
+        } else {
+            _reEnterPasswordText.setError(null);
+        }
+
+        return valid;
     }
 }
