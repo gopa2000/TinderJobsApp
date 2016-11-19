@@ -10,10 +10,10 @@
         android:layout_width="fill_parent"
         android:layout_height="455dp"
         card_view:cardCornerRadius="12dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"
-        android:layout_marginTop="15dp"
         card_view:cardElevation="1dp"
         android:background="#FFFFFF">
 
@@ -26,72 +26,51 @@
                 android:id="@+id/textcard_img"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
-                android:src="@drawable/lampard"
+                android:src="@drawable/hsbc"
                 android:scaleType="centerCrop"
                 android:layout_width="175dp"
                 android:layout_height="205dp" />
 
             <TextView
-                android:id="@+id/textcard_fname_label"
+                android:id="@+id/textcard_cname_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First Name"
+                android:text="Company name"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/textcard_img"/>
 
             <TextView
-                android:id="@+id/textcard_fname"
+                android:id="@+id/textcard_cname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Puru"
+                android:text="HSBC"
                 android:textSize="19dp"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@+id/textcard_img"
-                android:layout_below="@+id/textcard_fname_label"/>
+                android:layout_below="@+id/textcard_cname_label"/>
 
             <TextView
-                android:id="@+id/textcard_lname_label"
+                android:id="@+id/textcard_jobtitle_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Name"
+                android:text="Job Title"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="7dp"
                 android:layout_toRightOf="@+id/textcard_img"
-                android:layout_below="@+id/textcard_fname"/>
+                android:layout_below="@+id/textcard_cname"/>
 
             <TextView
-                android:id="@+id/textcard_lname"
+                android:id="@+id/textcard_jobtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bhagat"
+                android:text="Industrial Placement Trainee"
                 android:textSize="19dp"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@+id/textcard_img"
-                android:layout_below="@+id/textcard_lname_label"/>
-
-            <TextView
-                android:id="@+id/textcard_age_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Age"
-                android:textSize="10dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="7dp"
-                android:layout_toRightOf="@+id/textcard_img"
-                android:layout_below="@+id/textcard_lname"/>
-
-            <TextView
-                android:id="@+id/textcard_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="69"
-                android:textSize="19dp"
-                android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@+id/textcard_img"
-                android:layout_below="@+id/textcard_age_label"/>
+                android:layout_below="@+id/textcard_jobtitle_label"/>
 
             <TextView
                 android:id="@+id/textcard_industry_label"
@@ -102,7 +81,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="7dp"
                 android:layout_toRightOf="@+id/textcard_img"
-                android:layout_below="@+id/textcard_age"/>
+                android:layout_below="@+id/textcard_jobtitle"/>
 
             <TextView
                 android:id="@+id/textcard_industry"
@@ -114,11 +93,12 @@
                 android:layout_toRightOf="@+id/textcard_img"
                 android:layout_below="@+id/textcard_industry_label"/>
 
+
             <TextView
-                android:id="@+id/textcard_exp_label"
+                android:id="@+id/textcard_expreq_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Work Experience"
+                android:text="Experience Required"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="15dp"
@@ -126,38 +106,38 @@
                 android:layout_below="@+id/textcard_img"/>
 
             <TextView
-                android:id="@+id/textcard_exp"
+                android:id="@+id/textcard_expreq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Industrial Placement Trainee, HSBC (2016-2017)"
+                android:text="Minimum 6 months"
                 android:textSize="19dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_below="@+id/textcard_exp_label"/>
+                android:layout_below="@+id/textcard_expreq_label"/>
 
             <TextView
-                android:id="@+id/textcard_edu_label"
+                android:id="@+id/textcard_jobdesc_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Education"
+                android:text="Job Description"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="12dp"
-                android:layout_below="@+id/textcard_exp"/>
+                android:layout_below="@+id/textcard_expreq"/>
 
             <TextView
-                android:id="@+id/textcard_edu"
+                android:id="@+id/textcard_jobdesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BSc Computer Science, City University of Hong Kong (2014-2018)"
+                android:text="Require an intern with Computer Science background to work in Global Banking and Markets."
                 android:textSize="19dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="12dp"
-                android:layout_below="@+id/textcard_edu_label"/>
+                android:layout_below="@+id/textcard_jobdesc_label"/>
 
             <TextView
-                android:id="@+id/textcard_skills_label"
+                android:id="@+id/textcard_skillsreq_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Skills"
@@ -165,10 +145,10 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginRight="12dp"
-                android:layout_below="@+id/textcard_edu"/>
+                android:layout_below="@+id/textcard_jobdesc"/>
 
             <TextView
-                android:id="@+id/textcard_skills"
+                android:id="@+id/textcard_skillsreq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Java, C++, Python, HTML, CSS, JavaScript, Android, IBM System i"
@@ -176,7 +156,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="12dp"
-                android:layout_below="@+id/textcard_skills_label"/>
+                android:layout_below="@+id/textcard_skillsreq_label"/>
 
         </RelativeLayout>
 

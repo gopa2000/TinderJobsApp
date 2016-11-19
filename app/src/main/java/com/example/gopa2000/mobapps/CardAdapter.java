@@ -40,13 +40,22 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
         final ViewHolder viewHolder = new ViewHolder(view);
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                Context c =  view.getContext();
+                Intent intent = new Intent(view.getContext(), FullScreenCardLayout.class);
+                Log.i(TAG, "onClick: Card clicked.");
+                c.startActivity(intent);
+            }
+        });
+
         // open profile view
-        view.setOnClickListener(new View.OnClickListener(){
+        /*view.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "onClick: Card clicked.");
             }
-        });
+        });*/
 
         return viewHolder;
     }
@@ -71,8 +80,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
         public ViewHolder(View view){
             super(view);
-            fname = (TextView) view.findViewById(R.id.textView2);
-            lname = (TextView) view.findViewById(R.id.textView3);
+            //fname = (TextView) view.findViewById(R.id.textView2);
+            //lname = (TextView) view.findViewById(R.id.textView3);
         }
     }
 }

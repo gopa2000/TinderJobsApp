@@ -1,5 +1,7 @@
 package com.example.gopa2000.mobapps;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -78,8 +80,15 @@ public class MainViewFragment extends Fragment {
             }
         });
 
-        //flingContainer.setOnItemClickListener(new SwipeFlingAdapterView);
 
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject){
+                Toast.makeText(getActivity(), "Clicked!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getApplicationContext(), FullScreenCardLayout.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

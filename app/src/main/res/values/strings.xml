@@ -3,4 +3,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_card_layout_tester">CardLayoutTester</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Connect</item>
+        <item>View Matches</item>
+        <item>View Profile</item>
+        <item>Edit Profile</item>
+        <item>Logout</item>
+    </string-array>
+
 </resources>

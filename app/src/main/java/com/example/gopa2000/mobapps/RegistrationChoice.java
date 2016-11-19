@@ -27,7 +27,7 @@ public class RegistrationChoice extends AppCompatActivity {
                 seekerBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_bg_rounded_corners2));
 
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FullScreenCardLayout.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -41,7 +41,7 @@ public class RegistrationChoice extends AppCompatActivity {
                 employerBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_bg_rounded_corners2));
 
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), ExpertSignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FullScreenCardLayoutListing.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

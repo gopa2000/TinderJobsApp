@@ -1,19 +1,18 @@
 package com.example.gopa2000.mobapps;
 
-import android.content.Intent;
-import android.support.design.widget.NavigationView;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-
-import java.util.ArrayList;
+import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     SessionManager sessionManager;
+
+    private Button CardTester;
 
 
     @Override
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 

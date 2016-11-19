@@ -26,6 +26,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegistrationChoice" />
+        <activity
+            android:name=".CardLayoutTester"
+            android:label="@string/title_activity_card_layout_tester"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CreateListing" />
+        <activity android:name=".FullScreenCardLayout" />
+        <activity android:name=".FullScreenCardLayoutListing" />
+        <activity android:name=".EditSeekerProfile" />
+        <activity android:name=".EditEmployerProfile" />
+        <activity android:name=".ViewSeekerProfile" />
+        <activity android:name=".ViewEmployerProfile"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:background="#00909a"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabIndicatorColor="#b2e0e0"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="12dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        card_view:cardElevation="3dp"
+        android:layout_marginBottom="0dp">
+
+        <RelativeLayout
+            android:id="@+id/top_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="400dp">
+
+            <ImageView
+                android:id="@+id/textcard_img"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="175dp"
+                android:layout_height="205dp"
+                android:background="@drawable/lampard"/>
+
+            <TextView
+                android:id="@+id/textcard_fname_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:textSize="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/textcard_img"/>
+
+            <TextView
+                android:id="@+id/textcard_fname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Puru"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_fname_label"/>
+
+            <TextView
+                android:id="@+id/textcard_lname_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:textSize="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_fname"/>
+
+            <TextView
+                android:id="@+id/textcard_lname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bhagat"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_lname_label"/>
+
+            <TextView
+                android:id="@+id/textcard_age_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Age"
+                android:textSize="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_lname"/>
+
+            <TextView
+                android:id="@+id/textcard_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="69"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_age_label"/>
+
+            <TextView
+                android:id="@+id/textcard_industry_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Industry"
+                android:textSize="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_age"/>
+
+            <TextView
+                android:id="@+id/textcard_industry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Computer Science"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/textcard_img"
+                android:layout_below="@+id/textcard_industry_label"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

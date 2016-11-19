@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F7F8FC">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            card_view:cardCornerRadius="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            card_view:cardElevation="1dp"
+            android:background="#FFFFFF">
+
+            <RelativeLayout
+                android:id="@+id/top_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    android:id="@+id/textcard_img"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/hsbc"
+                    android:scaleType="centerCrop"
+                    android:layout_width="175dp"
+                    android:layout_height="205dp" />
+
+                <TextView
+                    android:id="@+id/textcard_cname_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Company name"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/textcard_img"/>
+
+                <TextView
+                    android:id="@+id/textcard_cname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HSBC"
+                    android:textSize="19dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/textcard_img"
+                    android:layout_below="@+id/textcard_cname_label"/>
+
+                <TextView
+                    android:id="@+id/textcard_jobtitle_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job Title"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_toRightOf="@+id/textcard_img"
+                    android:layout_below="@+id/textcard_cname"/>
+
+                <TextView
+                    android:id="@+id/textcard_jobtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Industrial Placement Trainee"
+                    android:textSize="19dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/textcard_img"
+                    android:layout_below="@+id/textcard_jobtitle_label"/>
+
+                <TextView
+                    android:id="@+id/textcard_industry_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Industry"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_toRightOf="@+id/textcard_img"
+                    android:layout_below="@+id/textcard_jobtitle"/>
+
+                <TextView
+                    android:id="@+id/textcard_industry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Computer Science"
+                    android:textSize="19dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/textcard_img"
+                    android:layout_below="@+id/textcard_industry_label"/>
+
+
+                <TextView
+                    android:id="@+id/textcard_expreq_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Experience Required"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_below="@+id/textcard_img"/>
+
+                <TextView
+                    android:id="@+id/textcard_expreq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Minimum 6 months"
+                    android:textSize="19dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_below="@+id/textcard_expreq_label"/>
+
+                <TextView
+                    android:id="@+id/textcard_jobdesc_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job Description"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_below="@+id/textcard_expreq"/>
+
+                <TextView
+                    android:id="@+id/textcard_jobdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Require an intern with Computer Science background to work in Global Banking and Markets. Must have worked in a similar division before with a minimum experience of 6 months. Salary is negotiable. The job requires the employee to deal with real time development work in a team of developers."
+                    android:textSize="19dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_below="@+id/textcard_jobdesc_label"/>
+
+                <TextView
+                    android:id="@+id/textcard_skillsreq_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Skills"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_below="@+id/textcard_jobdesc"/>
+
+                <TextView
+                    android:id="@+id/textcard_skillsreq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Java, C++, Python, HTML, CSS, JavaScript, Android, IBM System i, Github, Slack, JSP, JSTL, XML, XSTL, Project Management"
+                    android:textSize="19dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_below="@+id/textcard_skillsreq_label"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

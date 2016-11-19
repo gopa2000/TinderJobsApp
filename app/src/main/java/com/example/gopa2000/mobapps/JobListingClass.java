@@ -9,24 +9,18 @@ import java.util.ArrayList;
  */
 
 public class JobListingClass {
-    private String logoToUpload;
     private String companyName;
+    private String jobTitle;
+    private String experienceRequired;
     private String jobDescription;
     private String skillsRequired;
 
-    public JobListingClass(Bitmap logoToUpload, String companyName, ArrayList<String> jobDescription, ArrayList<String> skillsRequired){
-        this.logoToUpload = (logoToUpload != null ? Util.encodeTobase64(logoToUpload) : null);
+    public JobListingClass(String companyName, String jobTitle, String experienceRequired, ArrayList<String> jobDescription, ArrayList<String> skillsRequired){
         this.companyName = companyName;
+        this.jobTitle = jobTitle;
+        this.experienceRequired = experienceRequired;
         this.jobDescription = Util.listToString(jobDescription);
         this.skillsRequired = Util.listToString(skillsRequired);
-    }
-
-    public String getLogoToUpload() {
-        return logoToUpload;
-    }
-
-    public void setLogoToUpload(String logoToUpload) {
-        this.logoToUpload = logoToUpload;
     }
 
     public String getCompanyName() {
@@ -51,5 +45,21 @@ public class JobListingClass {
 
     public void setSkillsRequired(String skillsRequired) {
         this.skillsRequired = skillsRequired;
+    }
+
+    public String getExperienceRequired() {
+        return experienceRequired;
+    }
+
+    public void setExperienceRequired(String experienceRequired) {
+        this.experienceRequired = experienceRequired;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 }
