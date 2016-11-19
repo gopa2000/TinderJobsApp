@@ -3,11 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <include layout="@layout/fragment_profile_tab_seeker"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/include" />
+    <include layout="@layout/fragment_profile_tab_employer"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/include" />
 
 </ScrollView>

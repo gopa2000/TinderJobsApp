@@ -1,12 +1,15 @@
 package com.example.gopa2000.mobapps;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -28,6 +31,7 @@ public class ProfileTabSeeker extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Button view_profile;
 
     public ProfileTabSeeker() {
         // Required empty public constructor
@@ -54,6 +58,7 @@ public class ProfileTabSeeker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -63,8 +68,18 @@ public class ProfileTabSeeker extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_profile_tab_seeker, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_tab_seeker, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

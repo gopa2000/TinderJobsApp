@@ -224,7 +224,7 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton.setEnabled(false);
         final ProgressDialog progressDialog;
 
-        progressDialog = ProgressDialog.show(this, "", "Authenicating...", true, false);
+        progressDialog = ProgressDialog.show(this, "", "Authenticating...", true, false);
 
         String fname = fnameInput.getText().toString();
         String lname = lnameInput.getText().toString();

@@ -1,13 +1,175 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.gopa2000.mobapps.ProfileTabEmployer">
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_profile_tab"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:context="com.example.gopa2000.mobapps.ProfileTabFragment">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/profile_tab_img"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/hsbc"
+            android:scaleType="centerCrop"
+            android:layout_width="175dp"
+            android:layout_height="205dp" />
+
+        <TextView
+            android:text="HSBC"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/profile_tab_img"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/profile_tab_name"
+            android:textSize="20dp"/>
+
+        <View
+            android:id="@+id/greyline1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/profile_tab_name"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="#00909a"/>
+
+        <TextView
+            android:id="@+id/matches_label"
+            android:text="Matches"
+            android:textColor="#00909a"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/greyline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/createlisting"
+            android:text="Create Job Listing"
+            android:textColor="#000000"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/profiletab"
+            android:textSize="20dp"
+            android:layout_below="@+id/empmatches"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/empmatches"
+            android:text="View Matches"
+            android:textColor="#000000"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/profiletab"
+            android:textSize="20dp"
+            android:layout_below="@+id/matches_label"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <View
+            android:id="@+id/greyline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/viewlistings"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="#00909a"/>
+
+        <TextView
+            android:id="@+id/profile_label"
+            android:text="Profile"
+            android:textColor="#00909a"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/greyline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/viewlistings"
+            android:text="View Job Listings"
+            android:textColor="#000000"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/profiletab"
+            android:textSize="20dp"
+            android:layout_below="@+id/createlisting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/empviewprofile"
+            android:text="View Profile"
+            android:textColor="#000000"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20dp"
+            android:background="@drawable/profiletab"
+            android:layout_below="@+id/profile_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/empeditprofile"
+            android:text="Edit Profile"
+            android:textColor="#000000"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/profiletab"
+            android:textSize="20dp"
+            android:layout_below="@+id/empviewprofile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/logout"
+            android:text="Logout"
+            android:background="@drawable/profiletab"
+            android:textColor="#000000"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20dp"
+            android:layout_below="@+id/empeditprofile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <!--<TextView
+            android:text="placeholder"
+            android:textColor="#009A9A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textSize="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />-->
+
+    </RelativeLayout>
+
+</ScrollView>

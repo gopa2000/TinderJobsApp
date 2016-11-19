@@ -48,7 +48,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:textStyle="bold"
             android:layout_below="@+id/greyline1"
             android:layout_width="wrap_content"
@@ -128,23 +128,6 @@
             android:layout_below="@+id/editprofile"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"
-            android:layout_marginTop="440dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:padding="12dp"
-            android:text="Logout"
-            android:layout_below="@+id/profile_tab_name"
-            android:layout_centerHorizontal="true"
-            android:background="#2F4159"
-            android:shadowRadius="10"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"/>
-
         <!--<TextView
             android:text="placeholder"
             android:textColor="#009A9A"
