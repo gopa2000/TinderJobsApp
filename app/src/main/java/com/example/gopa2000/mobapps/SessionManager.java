@@ -56,11 +56,12 @@ public class SessionManager {
             String userType = userDetails.getString("type");
 
             editor.putString(DbHelper.KEY_TYPE, userType);
+
+            Log.d(TAG, "createLoginSession: " + userType);
             editor.putString(DbHelper.KEY_EMAIL, userDetails.getJSONObject("info").getString("email"));
             editor.putString(DbHelper.KEY_MOBNUM, userDetails.getJSONObject("info").getString("mobnum"));
             editor.putString(DbHelper.KEY_IMG, userDetails.getJSONObject("info").getString("img"));
             editor.putString(DbHelper.KEY_LIKES, userDetails.getJSONObject("info").getString("likes"));
-            editor.putString(DbHelper.KEY_TAGS, userDetails.getJSONObject("info").getString("tags"));
             editor.putString(DbHelper.KEY_DISLIKES, userDetails.getJSONObject("info").getString("dislikes"));
 
             // seeker specific
@@ -71,6 +72,7 @@ public class SessionManager {
                 editor.putString(DbHelper.KEY_FNAME, userDetails.getJSONObject("info").getString("fname"));
                 editor.putString(DbHelper.KEY_LNAME, userDetails.getJSONObject("info").getString("lname"));
                 editor.putString(DbHelper.KEY_SALUT, userDetails.getJSONObject("info").getString("salut"));
+                editor.putString(DbHelper.KEY_TAGS, userDetails.getJSONObject("info").getString("tags"));
             }
 
             // employer specific

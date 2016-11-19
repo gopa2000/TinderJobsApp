@@ -16,6 +16,7 @@ public class SessionCache {
     private ArrayList<JobListingClass> listings;
     private HashMap<String, String> likeTable;
     private ArrayList<EmployerClass> employers;
+    private HashMap<String, String> matched;
 
     private SessionCache(){
         this.sessionCards   = new ArrayList<>();
@@ -23,6 +24,7 @@ public class SessionCache {
         this.listings       = new ArrayList<>();
         this.likeTable      = new HashMap<>();
         this.employers      = new ArrayList<>();
+        this.matched        = new HashMap<>();
     }
 
     public static SessionCache getInstance(){
@@ -67,5 +69,13 @@ public class SessionCache {
 
     public void setEmployers(ArrayList<EmployerClass> employers) {
         this.employers = employers;
+    }
+
+    public void addToLikeTable (String Liker, String Likee) {
+
+    }
+
+    public void addToMatchTable(String Seeker, String Employer){
+
     }
 }

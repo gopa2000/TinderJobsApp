@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
 
 
-        /*if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
-            sessionCache.setSessionCards(dbHelper.getSeekers());
+        if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
+            sessionCache.setSessionCards(dbHelper.getListings());
         else
-            sessionCache.setSessionCards(dbHelper.getListings());*/
+            sessionCache.setSessionCards(dbHelper.getSeekers());
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);

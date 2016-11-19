@@ -75,6 +75,7 @@ public class SeekerClass extends CustomCard{
         return mobNumber;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
