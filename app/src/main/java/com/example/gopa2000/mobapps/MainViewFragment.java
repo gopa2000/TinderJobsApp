@@ -43,11 +43,10 @@ public class MainViewFragment extends Fragment {
         flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
         sessionManager = new SessionManager(getContext());
-        cards = sessionManager.getSessionCache().getSessionCards();
+        cards = SessionCache.getInstance().getSessionCards();
 
         // test card layout
-        //CustomCardTest(view);
-
+        // CustomCardTest(view);
 
         final CardSwipeAdapter adapter = new CardSwipeAdapter(getActivity(), cards);
         flingContainer.setAdapter(adapter);

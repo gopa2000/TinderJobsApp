@@ -24,18 +24,25 @@ public class SeekerClass extends CustomCard{
     private String mobNumber;
     private String email;
     private String tags;
+    private String likes;
+    private String dislikes;
+    private Bitmap img;
 
-    public SeekerClass(String salutation, String fname, String lname, Bitmap imgToUpload, String education, String workExp, String skills, String mobNumber, String email, String tags){
+
+    public SeekerClass(String salutation, String fname, String lname, String imgToUpload, String education, String workExp, String skills, String mobNumber, String email, String tags, String likes, String dislikes){
         this.salutation = salutation;
         this.fname = fname;
         this.lname = lname;
-        this.imgToUpload = (imgToUpload != null ? Util.encodeTobase64(imgToUpload) : null);
+        //this.imgToUpload = (imgToUpload != null ? Util.decodeBase64(imgToUpload) : null);
+        this.imgToUpload = "";
         this.education = education;
         this.workExp = workExp;
         this.skills = skills;
         this.mobNumber = mobNumber;
         this.email = email;
         this.tags = tags;
+        this.likes = likes;
+        this.dislikes = dislikes;
     }
 
     public String getSalutation() { return salutation; }
@@ -73,4 +80,8 @@ public class SeekerClass extends CustomCard{
     }
 
     public String getTags() { return tags; }
+
+    public String getLikes() { return likes; }
+
+    public String getDislikes() { return dislikes; }
 }

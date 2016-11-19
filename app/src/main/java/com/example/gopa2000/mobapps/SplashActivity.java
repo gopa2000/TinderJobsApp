@@ -39,9 +39,11 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         sessionManager =  new SessionManager(getApplicationContext());
-        sessionCache = sessionManager.getSessionCache();
+        sessionCache = SessionCache.getInstance();
         dbHelper = new DbHelper(getApplicationContext());
         downloadCompleted = new ArrayList<>();
+
+     //   sessionManager.logoutUser();
 
         Hashtable<String, String> last_downloaded = dbHelper.getLastDownloaded();
 
@@ -76,7 +78,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void syncDebugTest() {
-        Log.i(TAG, "onCreate: hello");
+       /* Log.i(TAG, "onCreate: hello");
         ArrayList<CustomCard> profiles = new ArrayList<>();
         for(int i=0; i<10; i++){
             Log.i(TAG, "doInBackground: creating profile object " + i);
@@ -88,7 +90,7 @@ public class SplashActivity extends AppCompatActivity {
         sessionCache.setSessionCards(profiles);
 
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     private void downloadSeekers(String lastDownloaded){

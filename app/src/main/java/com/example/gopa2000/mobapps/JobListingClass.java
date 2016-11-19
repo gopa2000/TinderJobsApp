@@ -8,19 +8,21 @@ import java.util.ArrayList;
  * Created by gopa2000 on 11/4/16.
  */
 
-public class JobListingClass {
+public class JobListingClass extends CustomCard {
     private String companyName;
-    private String jobTitle;
-    private String experienceRequired;
     private String jobDescription;
     private String skillsRequired;
+    private String tags;
+    private String jobTitle;
+    private String expRequired;
 
-    public JobListingClass(String companyName, String jobTitle, String experienceRequired, ArrayList<String> jobDescription, ArrayList<String> skillsRequired){
+    public JobListingClass(String companyName, String jobDescription, String skillsRequired, String tags, String jobTitle, String expRequired) {
         this.companyName = companyName;
+        this.jobDescription = jobDescription;
+        this.skillsRequired = skillsRequired;
+        this.tags = tags;
         this.jobTitle = jobTitle;
-        this.experienceRequired = experienceRequired;
-        this.jobDescription = Util.listToString(jobDescription);
-        this.skillsRequired = Util.listToString(skillsRequired);
+        this.expRequired = expRequired;
     }
 
     public String getCompanyName() {
@@ -47,19 +49,15 @@ public class JobListingClass {
         this.skillsRequired = skillsRequired;
     }
 
-    public String getExperienceRequired() {
-        return experienceRequired;
-    }
-
-    public void setExperienceRequired(String experienceRequired) {
-        this.experienceRequired = experienceRequired;
+    public String getTags() {
+        return tags;
     }
 
     public String getJobTitle() {
         return jobTitle;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public String getExpRequired() {
+        return expRequired;
     }
 }
