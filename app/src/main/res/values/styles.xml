@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-        <item name="colorControlNormal">#</item>
+        <item name="colorControlNormal">#00909a</item>
         <item name="colorControlActivated">#00909a</item>
         <item name="colorControlHighlight">#00909a</item>
     </style>

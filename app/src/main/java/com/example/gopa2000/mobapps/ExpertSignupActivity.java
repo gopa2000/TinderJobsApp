@@ -189,6 +189,11 @@ public class ExpertSignupActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
+
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     public boolean validate() {

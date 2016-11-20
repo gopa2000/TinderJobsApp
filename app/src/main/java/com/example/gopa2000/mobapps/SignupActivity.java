@@ -82,19 +82,19 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton = (Button) findViewById(R.id.btn_signup);
         eduInput = (EditText) findViewById(R.id.input_education);
 
-        btn_edu_add_line=(Button)findViewById(R.id.btn_edu_addline);
-        parent_layout_edu = (LinearLayout)findViewById(R.id.p_edu_layout);
-        btn_exp_add_line=(Button)findViewById(R.id.btn_exp_addline);
-        parent_layout_exp = (LinearLayout)findViewById(R.id.p_exp_layout);
-        btn_skills_add_line=(Button)findViewById(R.id.btn_skills_addline);
-        parent_layout_skills = (LinearLayout)findViewById(R.id.p_skills_layout);
+        btn_edu_add_line = (Button) findViewById(R.id.btn_edu_addline);
+        parent_layout_edu = (LinearLayout) findViewById(R.id.p_edu_layout);
+        btn_exp_add_line = (Button) findViewById(R.id.btn_exp_addline);
+        parent_layout_exp = (LinearLayout) findViewById(R.id.p_exp_layout);
+        btn_skills_add_line = (Button) findViewById(R.id.btn_skills_addline);
+        parent_layout_skills = (LinearLayout) findViewById(R.id.p_skills_layout);
 
         seeker_edu = new ArrayList<EditText>();
-        seeker_edu.add((EditText)findViewById(R.id.input_education));
+        seeker_edu.add((EditText) findViewById(R.id.input_education));
         seeker_exp = new ArrayList<EditText>();
-        seeker_exp.add((EditText)findViewById(R.id.input_work_exp));
+        seeker_exp.add((EditText) findViewById(R.id.input_work_exp));
         seeker_skills = new ArrayList<EditText>();
-        seeker_skills.add((EditText)findViewById(R.id.input_skills));
+        seeker_skills.add((EditText) findViewById(R.id.input_skills));
 
         btn_edu_add_line.setOnClickListener(new OnClickListener() {
             @Override
@@ -126,19 +126,20 @@ public class SignupActivity extends AppCompatActivity {
                 signup();
             }
         });
-
+/*
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(),SplashActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
-        });
+        });*/
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     protected void createEditTextViewEdu() {
@@ -216,10 +217,10 @@ public class SignupActivity extends AppCompatActivity {
     public void signup() {
         Log.d(TAG, "Signup");
 
-        if (!validate()) {
+        /*if (!validate()) {
             onSignupFailed();
             return;
-        }
+        }*/
 
         _signupButton.setEnabled(false);
         final ProgressDialog progressDialog;
