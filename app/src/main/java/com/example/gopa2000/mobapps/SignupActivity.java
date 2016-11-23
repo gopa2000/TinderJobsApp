@@ -81,7 +81,6 @@ public class SignupActivity extends AppCompatActivity {
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = (Button) findViewById(R.id.btn_signup);
         eduInput = (EditText) findViewById(R.id.input_education);
-        _loginLink = (TextView) findViewById(R.id.link_login);
 
         btn_edu_add_line=(Button)findViewById(R.id.btn_edu_addline);
         parent_layout_edu = (LinearLayout)findViewById(R.id.p_edu_layout);
@@ -127,7 +126,7 @@ public class SignupActivity extends AppCompatActivity {
                 signup();
             }
         });
-
+/*
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +138,11 @@ public class SignupActivity extends AppCompatActivity {
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
-        });
+        });*/
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     protected void createEditTextViewEdu() {
@@ -216,12 +219,12 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signup() {
         Log.d(TAG, "Signup");
-/*
-        if (!validate()) {
+
+        /*if (!validate()) {
             onSignupFailed();
             return;
-        }
-*/
+        }*/
+
         _signupButton.setEnabled(false);
         final ProgressDialog progressDialog;
 

@@ -11,10 +11,11 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="56dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView
+        <!--ImageView
             android:id="@+id/img_show"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
@@ -30,7 +31,14 @@
             android:gravity="center"
             android:textSize="16dp"
             android:textColor="#009A9A"
-            android:layout_weight="0.14" />
+            android:layout_weight="0.14" />-->
+
+        <ImageView android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal" />
+
 
         <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
