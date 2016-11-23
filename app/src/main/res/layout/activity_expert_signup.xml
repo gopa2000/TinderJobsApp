@@ -141,14 +141,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:textColorHint="#009A9A"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-            <EditText android:id="@+id/input_contactemail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Contact Email"
-                android:textColor="#ffffff" />
-        </android.support.design.widget.TextInputLayout>
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"></android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
         <Button

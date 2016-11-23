@@ -35,7 +35,6 @@ public class ExpertSignupActivity extends AppCompatActivity {
 
     private EditText cnameInput;
     private EditText _emailText;
-    private EditText _contactEmailText;
     private EditText _mobileText;
     private EditText _passwordText;
     private EditText _reEnterPasswordText;
@@ -54,6 +53,15 @@ public class ExpertSignupActivity extends AppCompatActivity {
 
         btn_info_add_line=(Button)findViewById(R.id.btn_info_addline);
         parent_layout_info = (LinearLayout)findViewById(R.id.p_info_layout);
+        cnameInput = (EditText) findViewById(R.id.input_cname);
+        _emailText = (EditText) findViewById(R.id.input_email);
+        _mobileText = (EditText) findViewById(R.id.input_mobile);
+        _passwordText = (EditText) findViewById(R.id.input_password);
+        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+        _signupButton = (Button) findViewById(R.id.btn_signup);
+        _loginLink = (TextView) findViewById(R.id.link_login);
+
+        sessionManager = new SessionManager(getApplicationContext());
 
         comp_info = new ArrayList<EditText>();
         comp_info.add((EditText)findViewById(R.id.input_cinfo));
@@ -63,6 +71,13 @@ public class ExpertSignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 createEditTextViewInfo();
+            }
+        });
+
+        _signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signup();
             }
         });
     }
@@ -94,10 +109,11 @@ public class ExpertSignupActivity extends AppCompatActivity {
     public void signup() {
         Log.d(TAG, "Signup");
 
+        /*
         if (!validate()) {
             onSignupFailed();
             return;
-        }
+        }*/
 
         _signupButton.setEnabled(false);
         final ProgressDialog progressDialog;
@@ -106,15 +122,10 @@ public class ExpertSignupActivity extends AppCompatActivity {
 
         String cname = cnameInput.getText().toString();
         String email = _emailText.getText().toString();
-        String contactemail = _contactEmailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         String compinfo = "[";
-
-        // TODO: 11/19/16 IMPLEMENT TAG AND IMAGE
-        String tags = "";
 
         // done using Util.encodeTobase64(Bitmap img);
         String img = "";
@@ -129,18 +140,19 @@ public class ExpertSignupActivity extends AppCompatActivity {
         compinfo += "]";
 
         RequestParams rp = new RequestParams();
-        rp.add("salut", "");
         rp.add("name", cname);
         rp.add("info", compinfo);
         rp.add("mobnum", mobile);
         rp.add("email", email);
         rp.add("password", password);
+        rp.add("img", img);
 
-        RESTClient.post("api/seeker", rp, new JsonHttpResponseHandler(){
+        RESTClient.post("api/employer", rp, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     String reqResult = response.getString("success");
+                    Log.d(TAG, "onSuccess: " + response.toString());
                     if (reqResult.equals("true")) {
                         sessionManager.createLoginSession(response);
 

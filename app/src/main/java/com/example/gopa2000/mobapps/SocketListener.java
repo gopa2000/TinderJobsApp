@@ -16,9 +16,9 @@ import io.socket.emitter.Emitter;
 public class SocketListener extends Service {
 
     private static String TAG = "SocketListener";
+    private Socket socket;
 
-    public SocketListener() {
-    }
+    public SocketListener() { }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -31,6 +31,10 @@ public class SocketListener extends Service {
         public SocketListener getService(){
             Log.i(TAG, "getService: Sitting in local binder.");
             return SocketListener.this;
+        }
+
+        public void sendMessage(String message){
+            socket.emit("match", message);
         }
     }
 
@@ -56,7 +60,7 @@ public class SocketListener extends Service {
         @Override
         public void run() {
             try {
-                Socket socket = IO.socket(RESTClient.getURL());
+                socket = IO.socket(RESTClient.getURL());
 
                 socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                     @Override
@@ -70,5 +74,9 @@ public class SocketListener extends Service {
                 Log.e(TAG, "run: ", e);
             }
         }
+    }
+
+    public Socket getSocket(){
+        return this.socket;
     }
 }

@@ -119,6 +119,8 @@ public class MainViewFragment extends Fragment {
                     }
                 }
 
+
+
                 if(match){
                     // open match activity
                     new AlertDialog.Builder(getContext())

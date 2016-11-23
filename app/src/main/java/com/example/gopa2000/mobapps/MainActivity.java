@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
 
-        /*
-        sessionManager.checkLogin();
-*/
         // Connect to background socket
         Intent serviceIntent = new Intent(MainActivity.this, SocketListener.class);
         startService(serviceIntent);

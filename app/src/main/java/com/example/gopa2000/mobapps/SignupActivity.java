@@ -81,6 +81,7 @@ public class SignupActivity extends AppCompatActivity {
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = (Button) findViewById(R.id.btn_signup);
         eduInput = (EditText) findViewById(R.id.input_education);
+        _loginLink = (TextView) findViewById(R.id.link_login);
 
         btn_edu_add_line=(Button)findViewById(R.id.btn_edu_addline);
         parent_layout_edu = (LinearLayout)findViewById(R.id.p_edu_layout);
@@ -215,12 +216,12 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signup() {
         Log.d(TAG, "Signup");
-
+/*
         if (!validate()) {
             onSignupFailed();
             return;
         }
-
+*/
         _signupButton.setEnabled(false);
         final ProgressDialog progressDialog;
 
