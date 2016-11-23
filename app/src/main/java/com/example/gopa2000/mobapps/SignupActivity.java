@@ -238,8 +238,8 @@ public class SignupActivity extends AppCompatActivity {
         String reEnterPassword = _reEnterPasswordText.getText().toString();
         String education = eduInput.getText().toString();
 
-        String skills = "[";
-        String workExp = "[";
+        String skills = "";
+        String workExp = "";
 
         // TODO: 11/19/16 IMPLEMENT TAG AND IMAGE
         String tags = "";
@@ -250,20 +250,18 @@ public class SignupActivity extends AppCompatActivity {
 
         boolean first = true;
         for(EditText skill : seeker_skills){
-            if(first) { first = false; }
-            else skills += ",";
+            if(first) { first = false; skills+="• ";}
+            else skills += "|• ";
             skills += skill.getText().toString();
         }
-        skills += "]";
 
         first = true;
         for(EditText work : seeker_exp) {
-            if(first) { first = false; }
-            else workExp += ",";
+            if(first) { first = false; workExp += "•"; }
+            else workExp += "|• ";
 
             workExp += work.getText().toString();
         }
-        workExp += "]";
 
         RequestParams rp = new RequestParams();
         rp.add("salut", "");

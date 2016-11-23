@@ -242,7 +242,7 @@ public class SplashActivity extends AppCompatActivity {
 
         params.put("timestamp", lastDownloaded);
 
-        RESTClient.get("api/matched", params, new JsonHttpResponseHandler(){
+        RESTClient.get("api/matches", params, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

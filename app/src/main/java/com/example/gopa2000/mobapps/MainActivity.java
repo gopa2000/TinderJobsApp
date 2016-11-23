@@ -1,6 +1,7 @@
 package com.example.gopa2000.mobapps;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,12 +15,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import org.json.JSONObject;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MessageSender {
 
     private String TAG = "MainActivity";
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     SessionCache sessionCache;
     Map<String, ?> userDetails;
     protected SocketListener socketService;
+    private boolean isBound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Connect to background socket
         Intent serviceIntent = new Intent(MainActivity.this, SocketListener.class);
         startService(serviceIntent);
+        doBindService();
 
         sessionCache = SessionCache.getInstance();
         userDetails = sessionManager.getUserDetails();
@@ -99,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             socketService = ((SocketListener.LocalBinder) iBinder).getService();
+
+            if(socketService != null){
+                Log.i("service-bind", "Service binded successfully!");
+
+                //do whatever you want to do after successful binding
+            }
         }
 
         @Override
@@ -107,4 +118,25 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void doBindService() {
+        bindService(new Intent(MainActivity.this, SocketListener.class), serviceConnection, Context.BIND_AUTO_CREATE);
+        isBound = true;
+        if(socketService!=null){
+            socketService.IsBoundable();
+        }
+    }
+
+
+    private void doUnbindService() {
+        if (isBound) {
+            // Detach our existing connection.
+            unbindService(serviceConnection);
+            isBound = false;
+        }
+    }
+
+    @Override
+    public void sendMessage(JSONObject json){
+        socketService.sendMessage(json);
+    }
 }

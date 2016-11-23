@@ -23,6 +23,7 @@ import com.loopj.android.http.RequestParams;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class MainViewFragment extends Fragment {
     // hax
     private static String userEmail;
 
-
+    private MessageSender messageSenderCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,11 +94,11 @@ public class MainViewFragment extends Fragment {
                 String Liker, Likee;
 
                 if(userDetails.get(DbHelper.KEY_TYPE).equals(DbHelper.KEY_SEEKER)) {
-                    Liker = MainViewFragment.userEmail;
+                    Liker = userDetails.get(DbHelper.KEY_EMAIL).toString();
                     Likee = ((JobListingClass)o).getOwnerEmail(getActivity());
                 } else {
-                    Likee = MainViewFragment.userEmail;
-                    Liker = ((SeekerClass)o).getEmail();
+                    Liker = userDetails.get(DbHelper.KEY_EMAIL).toString();
+                    Likee = ((SeekerClass)o).getEmail();
                 }
 
                 SessionCache sessionCache = SessionCache.getInstance();
@@ -120,21 +121,34 @@ public class MainViewFragment extends Fragment {
                 }
 
 
+                // for testing
+                match = true;
 
                 if(match){
                     // open match activity
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Matched!")
-                            .setMessage("Are you sure you want to delete this entry?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    JSONObject json = new JSONObject();
+                    RequestParams rpMatch = new RequestParams();
 
+                    try {
+                        if (userDetails.get(DbHelper.KEY_TYPE).equals(DbHelper.KEY_SEEKER)) {
+                            json.put("seeker", Liker);
+                            json.put("employer", Likee);
+                            rpMatch.put("seeker", Liker);
+                            rpMatch.put("employer", Likee);
+                        } else {
+                            json.put("seeker", Likee);
+                            json.put("employer", Liker);
+                            rpMatch.put("seeker", Liker);
+                            rpMatch.put("employer", Likee);
+                        }
+                    } catch (JSONException e){
+                        Log.e(TAG, "onRightCardExit: ", e);
+                    }
+
+                    messageSenderCallback.sendMessage(json);
                     sessionCache.addToMatchTable(Liker, Likee);
+
+                    RESTClient.post("api/matches", rpMatch, new JsonHttpResponseHandler());
                 }
             }
 
@@ -162,14 +176,20 @@ public class MainViewFragment extends Fragment {
         return view;
     }
 
-    private void CustomCardTest(View view){
-/*
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
 
-        cardAdapter = new CardAdapter(cards);
-        recyclerView.setAdapter(cardAdapter);
-*/
+        try {
+            messageSenderCallback = (MessageSender) context;
+        } catch(ClassCastException e){
+            Log.e(TAG, "onAttach: ", e);
+        }
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        messageSenderCallback = null;
     }
 }

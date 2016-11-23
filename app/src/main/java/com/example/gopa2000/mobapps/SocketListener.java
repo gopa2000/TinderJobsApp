@@ -7,7 +7,12 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -26,15 +31,19 @@ public class SocketListener extends Service {
         return localBinder;
     }
 
+    public void sendMessage(JSONObject message){
+        socket.emit("match", message);
+    }
+
+    public void IsBoundable(){
+        Toast.makeText(this,"I bind like butter", Toast.LENGTH_LONG).show();
+    }
+
     private final IBinder localBinder = new LocalBinder();
     public class LocalBinder extends Binder {
         public SocketListener getService(){
             Log.i(TAG, "getService: Sitting in local binder.");
             return SocketListener.this;
-        }
-
-        public void sendMessage(String message){
-            socket.emit("match", message);
         }
     }
 
@@ -66,6 +75,32 @@ public class SocketListener extends Service {
                     @Override
                     public void call(Object... args) {
                         Log.i(TAG, "call: Connected to backend, yo!");
+                    }
+                });
+
+                socket.on("match", new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+                        SessionManager sessionManager = new SessionManager(getApplicationContext());
+                        Map<String, ?> userDetails = sessionManager.getUserDetails();
+
+                        SessionCache sessionCache = SessionCache.getInstance();
+
+                        JSONObject obj      = (JSONObject) args[0];
+                        String userEmail    = userDetails.get(DbHelper.KEY_EMAIL).toString();
+
+                        try {
+                            String employer = obj.getString("employer").toString();
+                            String seeker = obj.getString("seeker").toString();
+                            if (userEmail.equals(employer) || userEmail.equals(seeker)){
+                                // alert user about match here
+                            }
+
+                            sessionCache.addToMatchTable(seeker, employer);
+                            Log.i(TAG, "call: " + obj.toString());
+                        } catch (JSONException e){
+                            Log.e(TAG, "call: ", e);
+                        }
                     }
                 });
 
