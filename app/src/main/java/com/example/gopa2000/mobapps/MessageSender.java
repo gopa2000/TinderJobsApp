@@ -7,5 +7,5 @@ import org.json.JSONObject;
  */
 
 public interface MessageSender {
-    void sendMessage(JSONObject json);
+    void sendMessage(String msg,  JSONObject json);
 }

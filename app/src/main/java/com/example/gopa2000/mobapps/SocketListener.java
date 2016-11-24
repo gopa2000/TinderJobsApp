@@ -31,8 +31,8 @@ public class SocketListener extends Service {
         return localBinder;
     }
 
-    public void sendMessage(JSONObject message){
-        socket.emit("match", message);
+    public void sendMessage(String msg, JSONObject obj){
+        socket.emit(msg, obj);
     }
 
     public void IsBoundable(){
@@ -96,7 +96,7 @@ public class SocketListener extends Service {
                                 // alert user about match here
                             }
 
-                            sessionCache.addToMatchTable(seeker, employer);
+                            sessionCache.addToMatchTable(seeker, employer, userEmail);
                             Log.i(TAG, "call: " + obj.toString());
                         } catch (JSONException e){
                             Log.e(TAG, "call: ", e);

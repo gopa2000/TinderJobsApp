@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     // queries for a typo
 
     // db config
-    private static final int DB_VERSION = 17;
+    private static final int DB_VERSION = 18;
     public static final String DB_NAME              = "AppDb";
     public static final String TABLE_LISTINGS       = "Listings";
     public static final String TABLE_EMPLOYERS      = "Employers";
@@ -345,8 +345,8 @@ public class DbHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public HashMap<String, String> getLiketable(){
-        HashMap<String, String> result = new HashMap<>();
+    public ArrayList<Like> getLiketable(){
+        ArrayList<Like> result = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String SELECT_QUERY = "SELECT * FROM LikeTable WHERE type=like";
@@ -354,7 +354,22 @@ public class DbHelper extends SQLiteOpenHelper {
         try (Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
 
             while(cursor.moveToNext()) {
-                result.put(cursor.getString(1), cursor.getString(2));
+                result.add(new Like(cursor.getString(1), cursor.getString(2)));
+            }
+        }
+
+        return result;
+    }
+
+    public ArrayList<Match> getMatchTable(){
+        ArrayList<Match> result = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String SELECT_QUERY = "SELECT * FROM MatchedTable;";
+
+        try(Cursor cursor =  db.rawQuery(SELECT_QUERY, null)){
+            while(cursor.moveToNext()){
+                result.add(new Match(cursor.getString(0), cursor.getString(1)));
             }
         }
 

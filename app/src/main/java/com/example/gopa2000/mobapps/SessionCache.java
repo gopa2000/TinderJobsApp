@@ -1,5 +1,7 @@
 package com.example.gopa2000.mobapps;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,17 +16,21 @@ public class SessionCache {
     private ArrayList<CustomCard> sessionCards;
     private ArrayList<SeekerClass> seekers;
     private ArrayList<JobListingClass> listings;
-    private HashMap<String, String> likeTable;
+    private ArrayList<Like> likeTable;
     private ArrayList<EmployerClass> employers;
-    private HashMap<String, String> matched;
+    private ArrayList<Match> matched;
+    private ArrayList<Match> sessionMatches;
+
+    private SessionManager sessionManager;
 
     private SessionCache(){
         this.sessionCards   = new ArrayList<>();
         this.seekers        = new ArrayList<>();
         this.listings       = new ArrayList<>();
-        this.likeTable      = new HashMap<>();
+        this.likeTable      = new ArrayList<>();
         this.employers      = new ArrayList<>();
-        this.matched        = new HashMap<>();
+        this.matched        = new ArrayList<>();
+        this.sessionMatches = new ArrayList<>();
     }
 
     public static SessionCache getInstance(){
@@ -55,13 +61,13 @@ public class SessionCache {
         this.listings = listings;
     }
 
-    public HashMap<String, String> getLikeTable() {
-        return likeTable;
-    }
+    public ArrayList<Like> getLikeTable() { return likeTable; }
 
-    public void setLikeTable(HashMap<String, String> likeTable) {
-        this.likeTable = likeTable;
-    }
+    public void setLikeTable(ArrayList<Like> likeTable) { this.likeTable = likeTable; }
+
+    public ArrayList<Match> getMatched() { return matched; }
+
+    public void setMatched(ArrayList<Match> matched) { this.matched = matched; }
 
     public ArrayList<EmployerClass> getEmployers() {
         return employers;
@@ -71,11 +77,29 @@ public class SessionCache {
         this.employers = employers;
     }
 
-    public void addToLikeTable (String Liker, String Likee) {
+    public void addToLikeTable (String Liker, String Likee) { this.likeTable.add(new Like(Liker, Likee)); }
 
+    public void addToMatchTable(String Seeker, String Employer, String sessionUserEmail){
+        this.matched.add(new Match(Seeker, Employer));
+
+        if(sessionUserEmail.equals(Seeker) || sessionUserEmail.equals(Employer))
+            this.sessionMatches.add(new Match(Seeker, Employer));
     }
 
-    public void addToMatchTable(String Seeker, String Employer){
+    public void generateSessionMatches(String userEmail){
+        for(Match m:matched){
+            if(m.getSeeker().equals(userEmail) || m.getEmployer().equals(userEmail)){
+                this.sessionMatches.add(m);
+                Log.e("SessionCache", "generateSessionMatches: " + m.toString());
+            }
+        }
+    }
 
+    public ArrayList<Match> getSessionMatches() {
+        return sessionMatches;
+    }
+
+    public void setSessionMatches(ArrayList<Match> sessionMatches) {
+        this.sessionMatches = sessionMatches;
     }
 }

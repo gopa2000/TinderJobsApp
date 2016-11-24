@@ -34,14 +34,16 @@
         <service
             android:name=".SocketListener"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
+
         <activity android:name=".CreateListing" />
         <activity android:name=".FullScreenCardLayout" />
         <activity android:name=".FullScreenCardLayoutListing" />
         <activity android:name=".EditSeekerProfile" />
         <activity android:name=".EditEmployerProfile" />
         <activity android:name=".ViewSeekerProfile" />
-        <activity android:name=".ViewEmployerProfile"></activity>
+        <activity android:name=".ViewEmployerProfile" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

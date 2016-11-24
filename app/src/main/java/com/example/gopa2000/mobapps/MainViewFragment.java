@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -110,16 +111,15 @@ public class MainViewFragment extends Fragment {
                 rp.put("likee", Likee);
                 RESTClient.post("api/like", rp, new JsonHttpResponseHandler());
 
-                HashMap<String, String> likeTable = sessionCache.getLikeTable();
+                ArrayList<Like> likeTable = sessionCache.getLikeTable();
 
                 Boolean match = false;
-                for(Map.Entry<String, ?> entry : likeTable.entrySet()){
-                    if( entry.getKey().equals(Likee) && entry.getValue().toString().equals(Liker)) {
+                for(Like entry : likeTable){
+                    if( entry.getLikee().equals(Liker) && entry.getLiker().equals(Likee) ) {
                         match = true;
                         break;
                     }
                 }
-
 
                 // for testing
                 match = true;
@@ -145,10 +145,29 @@ public class MainViewFragment extends Fragment {
                         Log.e(TAG, "onRightCardExit: ", e);
                     }
 
-                    messageSenderCallback.sendMessage(json);
-                    sessionCache.addToMatchTable(Liker, Likee);
+                    messageSenderCallback.sendMessage("match", json);
+                    sessionCache.addToMatchTable(Liker, Likee, userEmail);
 
                     RESTClient.post("api/matches", rpMatch, new JsonHttpResponseHandler());
+
+                    ListView list = (ListView) getActivity().findViewById(R.id.matches_lv);
+                    ArrayAdapter<String> adapter = (ArrayAdapter<String>) list.getAdapter();
+
+                    ArrayList<String> oldList = new ArrayList<String>();
+
+                    for(int i=0; i<adapter.getCount(); i++){
+                        oldList.add(adapter.getItem(i));
+                    }
+
+                    oldList.add("test@abc");
+
+                    ArrayAdapter<String> newAdapter = new ArrayAdapter<String>(
+                            getContext(),
+                            android.R.layout.simple_list_item_1,
+                            oldList
+                    );
+
+                    list.setAdapter(newAdapter);
                 }
             }
 
@@ -182,7 +201,7 @@ public class MainViewFragment extends Fragment {
 
         try {
             messageSenderCallback = (MessageSender) context;
-        } catch(ClassCastException e){
+        } catch(ClassCastException e) {
             Log.e(TAG, "onAttach: ", e);
         }
     }

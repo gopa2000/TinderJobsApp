@@ -46,8 +46,13 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
         startService(serviceIntent);
         doBindService();
 
+        dbHelper = new DbHelper(getApplicationContext());
+
         sessionCache = SessionCache.getInstance();
         userDetails = sessionManager.getUserDetails();
+
+        sessionCache.setMatched(dbHelper.getMatchTable());
+        sessionCache.generateSessionMatches(userDetails.get(DbHelper.KEY_EMAIL).toString());
 
         // Log.i(TAG, "onCreate: " + userDetails.toString());
 
@@ -55,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
         for(Map.Entry<String, ?> entry : userDetails.entrySet()){
             Log.d("MainActivity map", entry.getKey() + ": " + entry.getValue().toString());
         }
-
-        dbHelper = new DbHelper(getApplicationContext());
-
 
         if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
             sessionCache.setSessionCards(dbHelper.getListings());
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
             socketService = ((SocketListener.LocalBinder) iBinder).getService();
 
             if(socketService != null){
-                Log.i("service-bind", "Service binded successfully!");
+                Log.i("service-bind", "Service bound successfully!");
 
                 //do whatever you want to do after successful binding
             }
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
     }
 
     @Override
-    public void sendMessage(JSONObject json){
-        socketService.sendMessage(json);
+    public void sendMessage(String msg, JSONObject json){
+        socketService.sendMessage(msg, json);
     }
 }
