@@ -22,10 +22,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.RunnableFuture;
 
 import io.socket.client.Socket;
 
-public class ChatActivity extends AppCompatActivity implements MessageSender {
+public class ChatActivity extends AppCompatActivity implements MessageSender, ServiceCallback {
 
     private static String TAG = "ChatActivity";
 
@@ -55,6 +56,8 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
 
         doBindService();
 
+        DbHelper dbhelper = new DbHelper(getApplicationContext());
+
         sessionManager = new SessionManager(getApplicationContext());
         sessionCache = SessionCache.getInstance();
         userDetails = sessionManager.getUserDetails();
@@ -63,6 +66,9 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
         mAdapter = new MessageAdapter(getApplicationContext(), mMessages);
 
         mUsername = userDetails.get(DbHelper.KEY_EMAIL).toString();
+
+       // String actualName = dbhelper.getName(mUsername, userDetails.get(DbHelper.KEY_TYPE).toString());
+
         mMessagesView = (RecyclerView) findViewById(R.id.messages);
         mMessagesView.setLayoutManager(new LinearLayoutManager(this));
         mMessagesView.setAdapter(mAdapter);
@@ -75,13 +81,15 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
             public void onClick(View v) {
                 try {
                     JSONObject obj = new JSONObject();
-                    obj.put("room", roomID);
+                    obj.put("room", "room");
                     obj.put("sender", mUsername);
 
                     String message = mInputMessageView.getText().toString().trim();
                     obj.put("message", message);
 
                     sendMessage("send", obj);
+                    mInputMessageView.setText("");
+                    addMessage(mUsername, message);
                 }
 
                 catch (JSONException e){
@@ -91,10 +99,15 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
         });
     }
 
-    private static void addMessage(String username, String message) {
-        context.mMessages.add(new Message(username, message));
-        context.mAdapter.notifyItemInserted(context.mMessages.size() - 1);
-        context.scrollToBottom();
+    public void addMessage(final String username, final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mMessages.add(new Message(username, message));
+                mAdapter.notifyItemInserted(mMessages.size() - 1);
+                scrollToBottom();
+            }
+        });
     }
 
 
@@ -112,6 +125,7 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
 
                 //do whatever you want to do after successful binding
                 mSocket = socketService.getSocket();
+                socketService.setCallbacks(ChatActivity.this);
             }
         }
 
@@ -149,6 +163,9 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
     protected void onPause() {
         super.onPause();
         doUnbindService();
+        roomID = null;
+        context = null;
+        socketService.setCallbacks(null);
         finish();
     }
 
@@ -156,6 +173,25 @@ public class ChatActivity extends AppCompatActivity implements MessageSender {
     protected void onDestroy() {
         super.onDestroy();
         doUnbindService();
+        roomID = null;
+        context = null;
+        socketService.setCallbacks(null);
         finish();
+    }
+
+    @Override
+    public void receiveMessageRequest(JSONObject obj){
+        try {
+            Log.d(TAG, "call: " + obj.toString());
+
+            String room = obj.get("room").toString();
+            String msg = obj.get("message").toString();
+            String username = obj.get("sender").toString();
+
+            addMessage(username, msg);
+        }
+        catch(JSONException e) {
+            Log.e(TAG, "receiveMessageRequest: ", e);
+        }
     }
 }

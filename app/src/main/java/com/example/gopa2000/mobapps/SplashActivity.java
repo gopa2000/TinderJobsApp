@@ -203,6 +203,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.d(TAG, "onSuccess: Listings - " + response.toString());
                 dbHelper.storeData(response, DbHelper.TABLE_LISTINGS);
 
                 downloadCompleted.add(true);

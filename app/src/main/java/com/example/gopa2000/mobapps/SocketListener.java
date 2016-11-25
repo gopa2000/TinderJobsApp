@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +26,9 @@ public class SocketListener extends Service {
 
     private static String TAG = "SocketListener";
     private Socket socket;
+
+    private ServiceCallback servicecallback;
+    private DispServiceCallback dispServiceCallback;
 
     public SocketListener() { }
 
@@ -84,17 +88,7 @@ public class SocketListener extends Service {
                 socket.on("match", new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
-                    /*
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                new SweetAlertDialog(getApplicationContext(), SweetAlertDialog.SUCCESS_TYPE)
-                                        .setTitleText("Hey")
-                                        .setContentText("You matched with someone!")
-                                        .show();
-                            }
-                        });
-*/
+
                         SessionManager sessionManager = new SessionManager(getApplicationContext());
                         Map<String, ?> userDetails = sessionManager.getUserDetails();
 
@@ -102,6 +96,8 @@ public class SocketListener extends Service {
 
                         JSONObject obj      = (JSONObject) args[0];
                         String userEmail    = userDetails.get(DbHelper.KEY_EMAIL).toString();
+
+                        dispServiceCallback.displayMatch();
 
                         try {
                             String employer = obj.getString("employer").toString();
@@ -122,18 +118,37 @@ public class SocketListener extends Service {
                     @Override
                     public void call(Object... args) {
 
-                        try {
                             JSONObject obj = (JSONObject) args[0];
-                            String room = obj.get("room").toString();
 
-                            if (ChatActivity.roomID.equals(room)) {
+                        try {
 
+                            if (servicecallback != null) {
+                                servicecallback.receiveMessageRequest(obj);
+                            } else {
+                                Log.e(TAG, "call: service callback is null.");
+
+                                SessionCache sessionCache = SessionCache.getInstance();
+                                sessionCache.addMessagesToChat(obj.get("room").toString(), obj.get("sender").toString(), obj.get("message").toString());
                             }
-                            else {
+                        }
+                        catch(JSONException e){
+                            Log.e(TAG, "call: ", e);
+                        }
+                    }
+                });
 
-                            }
+                socket.on("like", new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+                        JSONObject obj = (JSONObject)args[0];
 
-                        } catch (JSONException e){
+                        SessionCache sessionCache = SessionCache.getInstance();
+
+                        try {
+                            sessionCache.addToLikeTable(new Like(obj.get("liker").toString(), obj.get("likee").toString()));
+                            dispServiceCallback.addToLiketable(new Like(obj.get("liker").toString(), obj.get("likee").toString()));
+                        }
+                        catch(JSONException e){
                             Log.e(TAG, "call: ", e);
                         }
                     }
@@ -144,6 +159,13 @@ public class SocketListener extends Service {
                 Log.e(TAG, "run: ", e);
             }
         }
+    }
+    public void setCallbacks(ServiceCallback callbacks) {
+        servicecallback = callbacks;
+    }
+
+    public void dispServicecb(DispServiceCallback dc){
+        dispServiceCallback = dc;
     }
 
     public Socket getSocket(){

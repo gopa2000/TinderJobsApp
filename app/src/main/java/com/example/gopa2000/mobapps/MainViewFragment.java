@@ -110,7 +110,17 @@ public class MainViewFragment extends Fragment {
                 rp.put("type", "like");
                 rp.put("liker", Liker);
                 rp.put("likee", Likee);
-                RESTClient.post("api/like", rp, new JsonHttpResponseHandler());
+                RESTClient.post("api/like", rp, new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        super.onSuccess(statusCode, headers, response);
+                    }
+                });
 
                 ArrayList<Like> likeTable = sessionCache.getLikeTable();
 
@@ -123,7 +133,7 @@ public class MainViewFragment extends Fragment {
                 }
 
                 // for testing
-                match = true;
+                // match = true;
 
                 if(match){
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)

@@ -1,5 +1,7 @@
 package com.example.gopa2000.mobapps;
 
+import android.util.Log;
+
 /**
  * Created by gopa2000 on 11/25/16.
  */
@@ -40,6 +42,9 @@ public class Match {
     }
 
     public static String generateChatroomToken(String seeker, String employer){
+
+        Log.d("Match", "generateChatroomToken: " + seeker + ", " + employer);
+
         String chatroom = seeker + employer;
         chatroom = chatroom.replaceAll("[^a-zA-Z0-9]+","");
 

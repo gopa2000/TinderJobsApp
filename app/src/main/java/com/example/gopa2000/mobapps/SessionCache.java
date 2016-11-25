@@ -112,10 +112,12 @@ public class SessionCache {
         this.chatRooms = chatRooms;
     }
 
-    public void addMessagesToChat(String room, Message message){
+    public void addMessagesToChat(String room, String sender, String message){
+
+        Message msg = new Message(sender, message);
         for(ChatRoom c:chatRooms){
             if(c.getRoom().equals(room)){
-                c.addMessage(message);
+                c.addMessage(msg);
             }
         }
     }
@@ -128,5 +130,13 @@ public class SessionCache {
         }
 
         return new ArrayList<Message>();
+    }
+
+    public void addToLikeTable(Like like){
+        likeTable.add(like);
+    }
+
+    public void createChatRoom(String room){
+        chatRooms.add(new ChatRoom(room, new ArrayList<Message>()));
     }
 }

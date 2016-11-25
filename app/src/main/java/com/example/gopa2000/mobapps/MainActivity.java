@@ -28,9 +28,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 
-public class MainActivity extends AppCompatActivity implements MessageSender {
+public class MainActivity extends AppCompatActivity implements MessageSender, DispServiceCallback {
 
     private String TAG = "MainActivity";
     private static ArrayList<Activity> activities=new ArrayList<Activity>();
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             socketService = ((SocketListener.LocalBinder) iBinder).getService();
 
+            socketService.dispServicecb(MainActivity.this);
+
             if(socketService != null){
                 Log.i("service-bind", "Service bound successfully!");
 
@@ -176,14 +179,19 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
     private void connectToRooms(ArrayList<Match> matchList){
 
         for(Match m:matchList) {
+            Log.d(TAG, "connectToRooms: " + m.toString());
             String roomID = Match.generateChatroomToken(m.getSeeker(),m.getEmployer());
+
+
 
             JSONObject joinChatObj = new JSONObject();
             try {
-                joinChatObj.put("room", roomID);
+                joinChatObj.put("room", "room");
             } catch (JSONException e) {
                 Log.e(TAG, "onCreate: ", e);
             }
+
+            Log.d(TAG, "connectToRooms: sending request to join " + roomID);
             socketService.sendMessage("subscribe", joinChatObj);
         }
     }
@@ -203,4 +211,23 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
             }
         });
     }
+
+    @Override
+    public void displayMatch(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new SweetAlertDialog(MainActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Hey")
+                        .setContentText("You matched with someone!")
+                        .show();
+            }
+        });
+    };
+
+    @Override
+    public void addToLiketable(Like like){
+
+    }
+
 }

@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     // queries for a typo
 
     // db config
-    private static final int DB_VERSION = 21;
+    private static final int DB_VERSION = 27;
     public static final String DB_NAME              = "AppDb";
     public static final String TABLE_LISTINGS       = "Listings";
     public static final String TABLE_EMPLOYERS      = "Employers";
@@ -386,6 +386,25 @@ public class DbHelper extends SQLiteOpenHelper {
                 result = cursor.getString(0);
             }
         }
+        return result;
+    }
+
+    public String getName(String email, String type){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String acttype = "";
+        if(type.equals("seeker")) acttype = "Seekers";
+        else acttype = "Employers";
+
+        String SELECT_QUERY = "SELECT " + KEY_NAME + " FROM " + acttype + " WHERE " + KEY_EMAIL + " like \'" + email + "\'";
+
+        String result = "null";
+        try(Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
+            while (cursor.moveToNext()){
+                result = cursor.toString();
+            }
+        }
+
         return result;
     }
 }

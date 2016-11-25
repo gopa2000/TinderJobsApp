@@ -73,8 +73,10 @@ public class MessagingFragment extends Fragment {
                 String recEmail = arrayAdapter.getItem(i);
                 String curEmail = userDetails.get(DbHelper.KEY_EMAIL).toString();
 
+                Log.d(TAG, "onItemClick: curEmail: " + curEmail + ", recEmail: " + recEmail);
+
                 String room;
-                if(userDetails.get(DbHelper.KEY_TYPE).toString().equals("SEEKER"))
+                if(userDetails.get(DbHelper.KEY_TYPE).toString().equals("seeker"))
                     room = Match.generateChatroomToken(curEmail, recEmail);
                 else
                     room = Match.generateChatroomToken(recEmail, curEmail);
