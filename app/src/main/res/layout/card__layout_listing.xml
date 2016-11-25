@@ -38,7 +38,7 @@
                 android:text="Company name"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_toRightOf="@+id/textcard_img"/>
 
             <TextView
@@ -46,8 +46,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="HSBC"
-                android:textSize="19dp"
+                android:textSize="15dp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_toRightOf="@+id/textcard_img"
                 android:layout_below="@+id/textcard_cname_label"/>
 
@@ -58,7 +60,7 @@
                 android:text="Job Title"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/textcard_img"
                 android:layout_below="@+id/textcard_cname"/>
 
@@ -67,8 +69,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Industrial Placement Trainee"
-                android:textSize="19dp"
+                android:textSize="15dp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_toRightOf="@+id/textcard_img"
                 android:layout_below="@+id/textcard_jobtitle_label"/>
 
@@ -79,7 +83,7 @@
                 android:text="Industry"
                 android:textSize="10dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/textcard_img"
                 android:layout_below="@+id/textcard_jobtitle"/>
 
@@ -87,9 +91,11 @@
                 android:id="@+id/textcard_industry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Computer Science"
-                android:textSize="19dp"
+                android:text="Computer Science and Engineering"
+                android:textSize="15dp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_toRightOf="@+id/textcard_img"
                 android:layout_below="@+id/textcard_industry_label"/>
 
@@ -110,7 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Minimum 6 months"
-                android:textSize="19dp"
+                android:textSize="15dp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_below="@+id/textcard_expreq_label"/>
@@ -131,7 +138,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Require an intern with Computer Science background to work in Global Banking and Markets."
-                android:textSize="19dp"
+                android:textSize="15dp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="12dp"
                 android:layout_below="@+id/textcard_jobdesc_label"/>
@@ -152,7 +160,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Java, C++, Python, HTML, CSS, JavaScript, Android, IBM System i"
-                android:textSize="19dp"
+                android:textSize="15dp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="12dp"

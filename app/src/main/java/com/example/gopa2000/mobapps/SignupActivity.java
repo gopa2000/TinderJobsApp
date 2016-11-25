@@ -51,7 +51,6 @@ public class SignupActivity extends AppCompatActivity {
     private EditText _reEnterPasswordText;
     private Button _signupButton;
     private TextView _loginLink;
-    private EditText eduInput;
 
     private Button btn_edu_add_line;
     private LinearLayout parent_layout_edu;
@@ -80,7 +79,6 @@ public class SignupActivity extends AppCompatActivity {
         _passwordText = (EditText) findViewById(R.id.input_password);
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = (Button) findViewById(R.id.btn_signup);
-        eduInput = (EditText) findViewById(R.id.input_education);
 
         btn_edu_add_line=(Button)findViewById(R.id.btn_edu_addline);
         parent_layout_edu = (LinearLayout)findViewById(R.id.p_edu_layout);
@@ -152,7 +150,7 @@ public class SignupActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         params.setMargins(0,10,0,10);
         EditText edittTxt = new EditText(this);
-        int maxLength = 5;
+        int maxLength = 200;
         hint_edu++;
         //edittTxt.setHint("editText"+hint);
         edittTxt.setLayoutParams(params);
@@ -176,7 +174,7 @@ public class SignupActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         params.setMargins(0,10,0,10);
         EditText edittTxt = new EditText(this);
-        int maxLength = 5;
+        int maxLength = 200;
         hint_exp++;
         //edittTxt.setHint("editText"+hint);
         edittTxt.setLayoutParams(params);
@@ -200,7 +198,7 @@ public class SignupActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         params.setMargins(0,10,0,10);
         EditText edittTxt = new EditText(this);
-        int maxLength = 5;
+        int maxLength = 200;
         hint_skills++;
         //edittTxt.setHint("editText"+hint);
         edittTxt.setLayoutParams(params);
@@ -236,8 +234,8 @@ public class SignupActivity extends AppCompatActivity {
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-        String education = eduInput.getText().toString();
 
+        String education ="";
         String skills = "";
         String workExp = "";
 
@@ -247,18 +245,24 @@ public class SignupActivity extends AppCompatActivity {
         // done using Util.encodeTobase64(Bitmap img);
         String img = "";
 
-
         boolean first = true;
+        for(EditText edu : seeker_edu){
+            if(first) { first = false; education+="• ";}
+            else education += "_• ";
+            education += edu.getText().toString();
+        }
+
+        first = true;
         for(EditText skill : seeker_skills){
             if(first) { first = false; skills+="• ";}
-            else skills += "|• ";
+            else skills += "_• ";
             skills += skill.getText().toString();
         }
 
         first = true;
         for(EditText work : seeker_exp) {
-            if(first) { first = false; workExp += "•"; }
-            else workExp += "|• ";
+            if(first) { first = false; workExp += "• "; }
+            else workExp += "_• ";
 
             workExp += work.getText().toString();
         }

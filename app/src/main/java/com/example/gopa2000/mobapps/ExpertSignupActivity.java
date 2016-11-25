@@ -89,7 +89,7 @@ public class ExpertSignupActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         params.setMargins(0,10,0,10);
         EditText edittTxt = new EditText(this);
-        int maxLength = 5;
+        int maxLength = 200;
         hint_info++;
         //edittTxt.setHint("editText"+hint);
         edittTxt.setLayoutParams(params);
@@ -125,19 +125,18 @@ public class ExpertSignupActivity extends AppCompatActivity {
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        String compinfo = "[";
+        String compinfo = "";
 
         // done using Util.encodeTobase64(Bitmap img);
         String img = "";
 
 
         boolean first = true;
-        for(EditText companyinfo : comp_info){
-            if(first) { first = false; }
-            else compinfo += ",";
-            compinfo += companyinfo.getText().toString();
+        for(EditText cinfo : comp_info){
+            if(first) { first = false; compinfo+="• ";}
+            else compinfo += "_• ";
+            compinfo += cinfo.getText().toString();
         }
-        compinfo += "]";
 
         RequestParams rp = new RequestParams();
         rp.add("name", cname);

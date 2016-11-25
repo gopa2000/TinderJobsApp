@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ public class ProfileTabFragment extends Fragment {
     SessionManager sessionManager;
     private TextView textView;
     private Button button;
+    private TextView view_matches;
     private TextView create_listing;
     private TextView emp_edit_profile;
     private TextView emp_view_profile;
@@ -67,6 +70,32 @@ public class ProfileTabFragment extends Fragment {
             profile_tab_name.setText(name);
             //profile_tab_img.setImageBitmap(image);
 
+            /*view_matches = (TextView) view.findViewById(R.id.empmatches);
+            view_matches.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new MessagingFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.view_pager, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });*/
+
+            //TODO: Remove create listing
+
+            create_listing = (TextView) view.findViewById(R.id.createlisting);
+            create_listing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // Start the Signup activity
+                    Intent intent = new Intent(getContext(), CreateListing.class);
+                    startActivity(intent);
+                }
+            });
+
             view_profile=(TextView) view.findViewById(R.id.empviewprofile);
             view_profile.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,11 +119,24 @@ public class ProfileTabFragment extends Fragment {
             });
         }else{
 
-            String name = userDetails.get(DbHelper.KEY_FNAME).toString();
+            String name = userDetails.get(DbHelper.KEY_NAME).toString();
             String image = userDetails.get(DbHelper.KEY_IMG).toString();
 
             profile_tab_name.setText(name);
             //profile_tab_img.setImageBitmap(image);
+
+            view_matches = (TextView) view.findViewById(R.id.empmatches);
+            view_matches.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new MessagingFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.view_pager, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });
 
             emp_view_profile = (TextView) view.findViewById(R.id.empviewprofile);
             emp_view_profile.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +165,6 @@ public class ProfileTabFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    create_listing.setBackgroundDrawable(getResources().getDrawable(R.drawable.profiletab));
                     // Start the Signup activity
                     Intent intent = new Intent(getContext(), CreateListing.class);
                     startActivity(intent);

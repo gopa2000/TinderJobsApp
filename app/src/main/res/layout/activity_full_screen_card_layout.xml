@@ -42,9 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="First Name"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="13dp"
                     android:layout_toRightOf="@+id/textcard_img"/>
 
                 <TextView
@@ -52,8 +52,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Puru"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_fname_label"/>
 
@@ -62,9 +64,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Last Name"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="15dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_fname"/>
 
@@ -73,8 +75,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bhagat"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_lname_label"/>
 
@@ -83,9 +87,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Age"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="15dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_lname"/>
 
@@ -94,8 +98,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="69"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_age_label"/>
 
@@ -104,9 +110,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Industry"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="15dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_age"/>
 
@@ -114,9 +120,11 @@
                     android:id="@+id/textcard_industry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Computer Science"
-                    android:textSize="19dp"
+                    android:text="Computer Science and Engineering"
+                    android:textSize="15dp"
                     android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_industry_label"/>
 
@@ -125,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Work Experience"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="12dp"
@@ -136,7 +144,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="• Industrial Placement Trainee, HSBC (2016-2017) \n• Full Stack Developer, Mylo, (2016-2017) \n• Android Developer, Jobstr, (2017)"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
                     android:layout_below="@+id/textcard_exp_label"/>
@@ -146,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Education"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginRight="12dp"
@@ -157,8 +166,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="• BSc Computer Science, City University of Hong Kong (2014-2018) \n• BA Computer Science, Columbia University (2017-2019)"
-                    android:textSize="19dp"
-                    android:layout_marginLeft="10dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="12dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginRight="12dp"
                     android:layout_below="@+id/textcard_edu_label"/>
 
@@ -167,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Skills"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginRight="12dp"
@@ -178,7 +188,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Java, C++, wlmcm, vn4lkm, vkl4nvlePython, HTML, CSS, JavaScript, Android, IBM System i, IBM RPG, IBM CLE, XML, XSTL, JSP, Project Management, VBA"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
                     android:layout_marginBottom="12dp"
