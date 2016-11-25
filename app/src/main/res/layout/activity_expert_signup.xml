@@ -18,9 +18,9 @@
         <ImageView
             android:id="@+id/textcard_img"
             android:layout_marginLeft="12dp"
-            android:background="@drawable/office2"
+            android:background="@drawable/office"
             android:scaleType="centerCrop"
-            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:layout_width="175dp"
             android:layout_height="205dp" />
 
