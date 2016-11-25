@@ -12,7 +12,7 @@ public class Match {
     public Match(String seeker, String employer){
         this.employer   = employer;
         this.seeker     = seeker;
-        this.chatroom   = generateChatroom();
+        this.chatroom   = generateChatroomToken(seeker, employer);
     }
 
     public String getEmployer() {
@@ -39,7 +39,7 @@ public class Match {
         this.chatroom = chatroom;
     }
 
-    private String generateChatroom(){
+    public static String generateChatroomToken(String seeker, String employer){
         String chatroom = seeker + employer;
         chatroom = chatroom.replaceAll("[^a-zA-Z0-9]+","");
 

@@ -3,7 +3,9 @@ package com.example.gopa2000.mobapps;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -81,6 +84,17 @@ public class SocketListener extends Service {
                 socket.on("match", new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
+                    /*
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                new SweetAlertDialog(getApplicationContext(), SweetAlertDialog.SUCCESS_TYPE)
+                                        .setTitleText("Hey")
+                                        .setContentText("You matched with someone!")
+                                        .show();
+                            }
+                        });
+*/
                         SessionManager sessionManager = new SessionManager(getApplicationContext());
                         Map<String, ?> userDetails = sessionManager.getUserDetails();
 
@@ -98,6 +112,27 @@ public class SocketListener extends Service {
 
                             sessionCache.addToMatchTable(seeker, employer, userEmail);
                             Log.i(TAG, "call: " + obj.toString());
+                        } catch (JSONException e){
+                            Log.e(TAG, "call: ", e);
+                        }
+                    }
+                });
+
+                socket.on("message", new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+
+                        try {
+                            JSONObject obj = (JSONObject) args[0];
+                            String room = obj.get("room").toString();
+
+                            if (ChatActivity.roomID.equals(room)) {
+
+                            }
+                            else {
+
+                            }
+
                         } catch (JSONException e){
                             Log.e(TAG, "call: ", e);
                         }

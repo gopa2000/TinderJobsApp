@@ -101,9 +101,12 @@ public class SessionManager {
         editor.clear();
         editor.commit();
 
+        MainActivity.finishAll();
+
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         context.startActivity(intent);
     }
 

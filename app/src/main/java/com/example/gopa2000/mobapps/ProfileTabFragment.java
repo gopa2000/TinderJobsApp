@@ -90,7 +90,7 @@ public class ProfileTabFragment extends Fragment {
             });
         }else{
 
-            String name = userDetails.get(DbHelper.KEY_FNAME).toString();
+            String name = userDetails.get(DbHelper.KEY_NAME).toString();
             String image = userDetails.get(DbHelper.KEY_IMG).toString();
 
             profile_tab_name.setText(name);

@@ -167,13 +167,18 @@ public class LoginActivity extends AppCompatActivity {
         returnIntent.putExtra("success", "true");
 
         Log.d(TAG, "onLoginSuccess: " + getParent());
-
+/*
         if (getParent() == null) {
             setResult(Activity.RESULT_OK, returnIntent);
         } else {
             getParent().setResult(Activity.RESULT_OK, returnIntent);
         }
-        finish();
+        finish();*/
+
+        Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+        mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(mainActivity);
     }
 
     public void onLoginFailed() {

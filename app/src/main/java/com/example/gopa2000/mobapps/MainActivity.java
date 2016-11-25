@@ -1,5 +1,6 @@
 package com.example.gopa2000.mobapps;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.Socket;
@@ -22,9 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity implements MessageSender {
 
     private String TAG = "MainActivity";
+    private static ArrayList<Activity> activities=new ArrayList<Activity>();
 
     DbHelper dbHelper;
     SessionManager sessionManager;
@@ -38,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /***************** Session Specific ******************/
+        activities.add(this);
 
         sessionManager = new SessionManager(getApplicationContext());
 
@@ -54,12 +65,15 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
         sessionCache.setMatched(dbHelper.getMatchTable());
         sessionCache.generateSessionMatches(userDetails.get(DbHelper.KEY_EMAIL).toString());
 
-        // Log.i(TAG, "onCreate: " + userDetails.toString());
+        downloadChats();
 
+        /////////////////////// DBG ///////////////////////////////////////////////////////
         Log.d(TAG, "onCreate: Going to print user details.");
         for(Map.Entry<String, ?> entry : userDetails.entrySet()){
             Log.d("MainActivity map", entry.getKey() + ": " + entry.getValue().toString());
         }
+        ///////////////////////////////////////////////////////////////////////////////////
+
 
         if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
             sessionCache.setSessionCards(dbHelper.getListings());
@@ -67,7 +81,11 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
             sessionCache.setSessionCards(dbHelper.getSeekers());
 
 
+        /*****************************************************************/
+
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
         tabLayout.addTab(tabLayout.newTab().setText("").setIcon(getResources().getDrawable(R.drawable.profileicon)));
         tabLayout.addTab(tabLayout.newTab().setText("").setIcon(getResources().getDrawable(R.drawable.homeicon)));
         tabLayout.addTab(tabLayout.newTab().setText("").setIcon(getResources().getDrawable(R.drawable.chaticon)));
@@ -98,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
 
             }
         });
-
-
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
@@ -111,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
                 Log.i("service-bind", "Service bound successfully!");
 
                 //do whatever you want to do after successful binding
+                connectToRooms(sessionCache.getSessionMatches());
             }
         }
 
@@ -140,5 +157,50 @@ public class MainActivity extends AppCompatActivity implements MessageSender {
     @Override
     public void sendMessage(String msg, JSONObject json){
         socketService.sendMessage(msg, json);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        activities.remove(this);
+        doUnbindService();
+    }
+
+    public static void finishAll()
+    {
+        for(Activity activity:activities)
+            activity.finish();
+    }
+
+    private void connectToRooms(ArrayList<Match> matchList){
+
+        for(Match m:matchList) {
+            String roomID = Match.generateChatroomToken(m.getSeeker(),m.getEmployer());
+
+            JSONObject joinChatObj = new JSONObject();
+            try {
+                joinChatObj.put("room", roomID);
+            } catch (JSONException e) {
+                Log.e(TAG, "onCreate: ", e);
+            }
+            socketService.sendMessage("subscribe", joinChatObj);
+        }
+    }
+
+    private void downloadChats(){
+        RequestParams requestParams = new RequestParams();
+
+        RESTClient.get("api/chat/" + userDetails.get(DbHelper.KEY_EMAIL).toString(), requestParams, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.i(TAG, "onSuccess: " + response.toString());
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.i(TAG, "onSuccess: " + response.toString());
+            }
+        });
     }
 }

@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 
 public class MainViewFragment extends Fragment {
@@ -125,7 +126,11 @@ public class MainViewFragment extends Fragment {
                 match = true;
 
                 if(match){
-                    // open match activity
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Hey")
+                            .setContentText("You matched with someone!")
+                            .show();
+
                     JSONObject json = new JSONObject();
                     RequestParams rpMatch = new RequestParams();
 
@@ -153,21 +158,8 @@ public class MainViewFragment extends Fragment {
                     ListView list = (ListView) getActivity().findViewById(R.id.matches_lv);
                     ArrayAdapter<String> adapter = (ArrayAdapter<String>) list.getAdapter();
 
-                    ArrayList<String> oldList = new ArrayList<String>();
-
-                    for(int i=0; i<adapter.getCount(); i++){
-                        oldList.add(adapter.getItem(i));
-                    }
-
-                    oldList.add("test@abc");
-
-                    ArrayAdapter<String> newAdapter = new ArrayAdapter<String>(
-                            getContext(),
-                            android.R.layout.simple_list_item_1,
-                            oldList
-                    );
-
-                    list.setAdapter(newAdapter);
+                    adapter.add(Likee);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

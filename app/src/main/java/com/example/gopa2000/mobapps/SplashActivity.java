@@ -26,7 +26,7 @@ import static com.example.gopa2000.mobapps.DbHelper.TABLE_SEEKERS;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private final String TAG = "Splash Activity";
+    private final String TAG = "SplashActivity";
 
     SessionManager sessionManager;
     SessionCache sessionCache;
@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
         downloadCompleted = new ArrayList<>();
 
-        sessionManager.logoutUser();
+        //sessionManager.logoutUser();
 
         Hashtable<String, String> last_downloaded = dbHelper.getLastDownloaded();
 
@@ -74,23 +74,6 @@ public class SplashActivity extends AppCompatActivity {
         for(boolean bool:downloadCompleted)
             if(bool == false) res = false;
 
-
-    }
-
-    private void syncDebugTest() {
-       /* Log.i(TAG, "onCreate: hello");
-        ArrayList<CustomCard> profiles = new ArrayList<>();
-        for(int i=0; i<10; i++){
-            Log.i(TAG, "doInBackground: creating profile object " + i);
-            profiles.add(new SeekerClass(i + "salut", i+"fname", i+"lname", null, i+"edu", i+"workExp", i+"Skills", i+"contact", i+"email", i+"tags"));
-        }
-
-        Log.i(TAG, "onCreate: cards arraylist size:" + profiles.size());
-
-        sessionCache.setSessionCards(profiles);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);*/
     }
 
     private void downloadSeekers(String lastDownloaded){
@@ -281,5 +264,4 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 }

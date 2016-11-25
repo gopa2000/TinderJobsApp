@@ -3,7 +3,6 @@ package com.example.gopa2000.mobapps;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by gopa2000 on 11/13/16.
@@ -20,6 +19,7 @@ public class SessionCache {
     private ArrayList<EmployerClass> employers;
     private ArrayList<Match> matched;
     private ArrayList<Match> sessionMatches;
+    private ArrayList<ChatRoom> chatRooms;
 
     private SessionManager sessionManager;
 
@@ -31,6 +31,7 @@ public class SessionCache {
         this.employers      = new ArrayList<>();
         this.matched        = new ArrayList<>();
         this.sessionMatches = new ArrayList<>();
+        this.chatRooms      = new ArrayList<>();
     }
 
     public static SessionCache getInstance(){
@@ -101,5 +102,31 @@ public class SessionCache {
 
     public void setSessionMatches(ArrayList<Match> sessionMatches) {
         this.sessionMatches = sessionMatches;
+    }
+
+    public ArrayList<ChatRoom> getChatRooms() {
+        return chatRooms;
+    }
+
+    public void setChatRooms(ArrayList<ChatRoom> chatRooms) {
+        this.chatRooms = chatRooms;
+    }
+
+    public void addMessagesToChat(String room, Message message){
+        for(ChatRoom c:chatRooms){
+            if(c.getRoom().equals(room)){
+                c.addMessage(message);
+            }
+        }
+    }
+
+    public ArrayList<Message> getChatMessages(String room){
+        for(ChatRoom c:chatRooms){
+            if(c.getRoom().equals(room)){
+                return c.getMessages();
+            }
+        }
+
+        return new ArrayList<Message>();
     }
 }
