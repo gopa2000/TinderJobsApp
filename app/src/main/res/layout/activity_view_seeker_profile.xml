@@ -4,13 +4,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
-    android:background="@drawable/login_background_gradient">
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:background="#2F4159">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/viewprofileicon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/viewprofileactivity2"/>
+
+            <TextView
+                android:id="@+id/tab_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="57dp"
+                android:elevation="2dp"
+                android:text="View Profile"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/viewprofileicon"
+                android:layout_marginLeft="10dp"
+                android:textColor="#009A9A"
+                android:textSize="20dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/textcard_img"
@@ -26,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="First Name"
-            android:textSize="12dp"
+            android:textSize="11dp"
             android:textColor="#009A9A"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
@@ -37,8 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Puru"
-            android:textColor="#ffffff"
-            android:textSize="19dp"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:lineSpacingExtra="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@+id/textcard_fname_label"/>
@@ -48,10 +82,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last Name"
-            android:textSize="12dp"
+            android:textSize="11dp"
             android:textColor="#009A9A"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/textcard_fname"/>
 
         <TextView
@@ -59,99 +93,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bhagat"
-            android:textColor="#ffffff"
-            android:textSize="19dp"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:lineSpacingExtra="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@+id/textcard_lname_label"/>
 
         <TextView
-            android:id="@+id/textcard_age_label"
+            android:id="@+id/textcard_email_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Age"
-            android:textColor="#009A9A"
-            android:textSize="12dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
-            android:layout_below="@+id/textcard_lname"/>
-
-        <TextView
-            android:id="@+id/textcard_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20"
-            android:textColor="#ffffff"
-            android:textSize="19dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_below="@+id/textcard_age_label"/>
-
-        <TextView
-            android:id="@+id/textcard_industry_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Industry"
-            android:textSize="12dp"
+            android:text="Email"
+            android:textSize="11dp"
             android:textColor="#009A9A"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
-            android:layout_toRightOf="@+id/textcard_img"
-            android:layout_below="@+id/textcard_age"/>
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/textcard_fname"/>
 
         <TextView
-            android:id="@+id/textcard_industry"
+            android:id="@+id/textcard_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Computer Science"
-            android:textColor="#ffffff"
-            android:textSize="19dp"
+            android:text="puru.bhagat@yahoo.com"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:lineSpacingExtra="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/textcard_industry_label"/>
+            android:layout_below="@+id/textcard_email_label"/>
+
 
         <TextView
-            android:id="@+id/textcard_exp_label"
+            android:id="@+id/textcard_mobile_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Work Experience"
-            android:textSize="12dp"
+            android:text="Mobile Number"
+            android:textSize="11dp"
             android:textColor="#009A9A"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/textcard_industry"/>
+            android:layout_below="@+id/textcard_emal"/>
 
         <TextView
-            android:id="@+id/textcard_exp"
+            android:id="@+id/textcard_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Industrial Placement Trainee, HSBC (2016-2017)"
-            android:textSize="19dp"
-            android:textColor="#ffffff"
+            android:text="52442908"
+            android:textSize="16dp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="#000000"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/textcard_exp_label"/>
+            android:layout_below="@+id/textcard_mobile_label"/>
 
         <TextView
             android:id="@+id/textcard_edu_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Education"
-            android:textSize="12dp"
+            android:textSize="11dp"
             android:textColor="#009A9A"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="12dp"
-            android:layout_below="@+id/textcard_exp"/>
+            android:layout_below="@+id/textcard_email"/>
 
         <TextView
             android:id="@+id/textcard_edu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BSc Computer Science, City University of Hong Kong (2014-2018)"
-            android:textSize="19dp"
-            android:textColor="#ffffff"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:lineSpacingExtra="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@+id/textcard_edu_label"/>
@@ -161,10 +177,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Skills"
-            android:textSize="12dp"
+            android:textSize="11dp"
             android:textColor="#009A9A"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="12dp"
             android:layout_below="@+id/textcard_edu"/>
 
@@ -173,13 +189,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Java, C++, Python, HTML, CSS, JavaScript, Android, IBM System i"
-            android:textSize="19dp"
-            android:textColor="#ffffff"
+            android:textSize="16dp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="#000000"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="12dp"
             android:layout_below="@+id/textcard_skills_label"/>
 
-
     </LinearLayout>
+
 </ScrollView>

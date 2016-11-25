@@ -54,39 +54,102 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/createlisting"
-            android:text="Create Job Listing"
-            android:textColor="#000000"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/profiletab"
-            android:textSize="20dp"
-            android:layout_below="@+id/empmatches"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/empmatches"
-            android:text="View Matches"
-            android:textColor="#000000"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/profiletab"
-            android:textSize="20dp"
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewmatcheslayout"
             android:layout_below="@+id/matches_label"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:background="@drawable/profiletab">
+
+            <ImageView
+                android:id="@+id/empmatchesicon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/viewmatches40"
+                android:background="@drawable/profiletab"/>
+
+            <TextView
+                android:id="@+id/empmatches"
+                android:text="   View Matches"
+                android:textColor="#000000"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:background="@drawable/profiletab"
+                android:textSize="18dp"
+                android:layout_toRightOf="@id/empmatchesicon"
+                android:layout_width="fill_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/createlistinglayout"
+            android:layout_below="@+id/viewmatcheslayout"
+            android:background="@drawable/profiletab">
+
+            <ImageView
+                android:id="@+id/createlistingicon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/createlisting2"
+                android:background="@drawable/profiletab"/>
+
+            <TextView
+                android:id="@+id/createlisting"
+                android:text="   Create Job Listing"
+                android:textColor="#000000"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:layout_toRightOf="@id/createlistingicon"
+                android:background="@drawable/profiletab"
+                android:textSize="18dp"
+                android:layout_width="fill_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewlistingslayout"
+            android:layout_below="@+id/createlistinglayout"
+            android:background="@drawable/profiletab">
+
+            <ImageView
+                android:id="@+id/viewlistingsicon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/viewlisting"
+                android:background="@drawable/profiletab"/>
+
+            <TextView
+                android:id="@+id/viewlistings"
+                android:text="   View Job Listings"
+                android:textColor="#000000"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:background="@drawable/profiletab"
+                android:layout_toRightOf="@id/viewlistingsicon"
+                android:textSize="18dp"
+                android:layout_width="fill_parent" />
+
+        </RelativeLayout>
 
         <View
             android:id="@+id/greyline2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/viewlistings"
+            android:layout_below="@+id/viewlistingslayout"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
@@ -99,67 +162,103 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:textStyle="bold"
             android:layout_below="@+id/greyline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/viewlistings"
-            android:text="View Job Listings"
-            android:textColor="#000000"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/profiletab"
-            android:textSize="20dp"
-            android:layout_below="@+id/createlisting"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/empviewprofile"
-            android:text="View Profile"
-            android:textColor="#000000"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:textSize="20dp"
-            android:background="@drawable/profiletab"
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:id="@+id/viewprofilelayout"
             android:layout_below="@+id/profile_label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/profiletab">
 
-        <TextView
-            android:id="@+id/empeditprofile"
-            android:text="Edit Profile"
-            android:textColor="#000000"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/profiletab"
-            android:textSize="20dp"
-            android:layout_below="@+id/empviewprofile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/viewprofileicon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/viewprofile"
+                android:background="@drawable/profiletab"/>
 
-        <TextView
-            android:id="@+id/logout"
-            android:text="Logout"
-            android:background="@drawable/profiletab"
-            android:textColor="#000000"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:textSize="20dp"
-            android:layout_below="@+id/empeditprofile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/empviewprofile"
+                android:text="   View Profile"
+                android:textColor="#000000"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:layout_toRightOf="@+id/viewprofileicon"
+                android:textSize="18dp"
+                android:background="@drawable/profiletab"
+                android:layout_width="fill_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editprofilelayout"
+            android:layout_below="@+id/viewprofilelayout"
+            android:background="@drawable/profiletab">
+
+            <ImageView
+                android:id="@+id/editprofileicon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/editprofile"
+                android:background="@drawable/profiletab"/>
+
+            <TextView
+                android:id="@+id/empeditprofile"
+                android:text="   Edit Profile"
+                android:textColor="#000000"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:layout_toRightOf="@+id/editprofileicon"
+                android:background="@drawable/profiletab"
+                android:textSize="18dp"
+                android:layout_width="fill_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoutlayout"
+            android:layout_below="@+id/editprofilelayout"
+            android:background="@drawable/profiletab">
+
+            <ImageView
+                android:id="@+id/logouticon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/logout"
+                android:background="@drawable/profiletab"/>
+
+            <TextView
+                android:id="@+id/logout"
+                android:text="   Logout"
+                android:background="@drawable/profiletab"
+                android:textColor="#000000"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:layout_toRightOf="@id/logouticon"
+                android:textSize="18dp"
+                android:layout_width="fill_parent" />
+
+        </RelativeLayout>
+
         <!--<TextView
             android:text="placeholder"
             android:textColor="#009A9A"
