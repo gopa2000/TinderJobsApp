@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,7 @@ public class ProfileTabFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_tab, container, false);
 
-
-
+        final ViewPager vp=(ViewPager) getActivity().findViewById(R.id.view_pager);
 
         sessionManager = new SessionManager(getActivity().getApplicationContext());
         Map<String,?> userDetails = sessionManager.getUserDetails();
@@ -70,18 +70,13 @@ public class ProfileTabFragment extends Fragment {
             profile_tab_name.setText(name);
             //profile_tab_img.setImageBitmap(image);
 
-            /*view_matches = (TextView) view.findViewById(R.id.empmatches);
+            view_matches = (TextView) view.findViewById(R.id.empmatches);
             view_matches.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new MessagingFragment();
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.view_pager, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    vp.setCurrentItem(2);
                 }
-            });*/
+            });
 
             //TODO: Remove create listing
 
@@ -129,12 +124,7 @@ public class ProfileTabFragment extends Fragment {
             view_matches.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new MessagingFragment();
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.view_pager, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    vp.setCurrentItem(2);
                 }
             });
 

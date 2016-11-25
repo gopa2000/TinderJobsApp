@@ -15,7 +15,7 @@
             android:id="@+id/profile_tab_img"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/lampard"
+            android:background="@drawable/employeefin"
             android:scaleType="centerCrop"
             android:layout_width="175dp"
             android:layout_height="205dp" />

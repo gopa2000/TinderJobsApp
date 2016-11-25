@@ -37,7 +37,7 @@ public class ViewSeekerProfile extends AppCompatActivity {
         viewprofile_email = (TextView) findViewById(R.id.textcard_email);
         viewprofile_email.setText(userDetails.get(DbHelper.KEY_EMAIL).toString());
 
-        viewprofile_mobile = (TextView) findViewById(R.id.textcard_contact);
+        viewprofile_mobile = (TextView) findViewById(R.id.textcard_mobile);
         viewprofile_mobile.setText(userDetails.get(DbHelper.KEY_MOBNUM).toString());
 
         viewprofile_exp = (TextView) findViewById(R.id.textcard_exp);

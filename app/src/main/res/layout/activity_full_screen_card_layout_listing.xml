@@ -30,7 +30,7 @@
                     android:id="@+id/textcard_img"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
-                    android:src="@drawable/hsbc"
+                    android:background="@drawable/office2"
                     android:scaleType="centerCrop"
                     android:layout_width="175dp"
                     android:layout_height="205dp" />
@@ -42,7 +42,7 @@
                     android:text="Company name"
                     android:textSize="10dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/textcard_img"/>
 
                 <TextView
@@ -79,30 +79,6 @@
                     android:layout_marginRight="12dp"
                     android:layout_toRightOf="@+id/textcard_img"
                     android:layout_below="@+id/textcard_jobtitle_label"/>
-
-                <TextView
-                    android:id="@+id/textcard_industry_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Industry"
-                    android:textSize="10dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/textcard_img"
-                    android:layout_below="@+id/textcard_jobtitle"/>
-
-                <TextView
-                    android:id="@+id/textcard_industry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Computer Science and Engineering"
-                    android:textSize="15dp"
-                    android:lineSpacingExtra="5dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_toRightOf="@+id/textcard_img"
-                    android:layout_below="@+id/textcard_industry_label"/>
-
 
                 <TextView
                     android:id="@+id/textcard_expreq_label"

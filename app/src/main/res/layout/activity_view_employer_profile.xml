@@ -47,7 +47,7 @@
         <ImageView
             android:id="@+id/textcard_img"
             android:layout_marginTop="20dp"
-            android:src="@drawable/hsbc"
+            android:background="@drawable/office2"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:layout_width="175dp"
