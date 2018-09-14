@@ -1,9 +1,6 @@
 package com.example.gopa2000.mobapps;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +9,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 import cz.msebera.android.httpclient.Header;
@@ -78,9 +72,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void downloadSeekers(String lastDownloaded){
         RequestParams params = new RequestParams();
-
         params.put("timestamp", lastDownloaded);
-
         RESTClient.get("api/seekers", params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -92,10 +84,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 if(!response.toString().equals("[]"))
                     dbHelper.storeData(response, TABLE_SEEKERS);
-
                 downloadCompleted.add(true);
             }
 
@@ -224,22 +214,18 @@ public class SplashActivity extends AppCompatActivity {
 
     private void downloadMatched(String lastDownloaded){
         RequestParams params = new RequestParams();
-
         params.put("timestamp", lastDownloaded);
 
         RESTClient.get("api/matches", params, new JsonHttpResponseHandler(){
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 downloadCompleted.add(true);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 dbHelper.storeData(response, DbHelper.TABLE_MATCHED);
-
                 downloadCompleted.add(true);
             }
 
@@ -257,13 +243,10 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         Log.i(TAG, "onActivityResult: Reached - " + requestCode + " " + resultCode);
-
         // bit of a hack, since resultCode was always 0 (no clue why).
         // trusting loginActivity to not finish() without legitimate authentication
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
     }
 }

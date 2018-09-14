@@ -39,9 +39,6 @@ public class SessionManager {
     // Shared prefs keys
     private static final String IS_LOGGED_IN = "IsLoggedIn";
 
-
-
-
     public SessionManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -81,10 +78,8 @@ public class SessionManager {
                 editor.putString(DbHelper.KEY_NAME, userDetails.getJSONObject("info").getString("name"));
             }
 
-
             // commit changes
             editor.commit();
-
             Map<String, ?> prefTest = pref.getAll();
 
             for(Map.Entry<String, ?> entry : prefTest.entrySet()){
@@ -112,7 +107,6 @@ public class SessionManager {
 
     public Map<String,?> getUserDetails(){
         Map<String,?> user = pref.getAll();
-
         return user;
     }
 
@@ -122,7 +116,6 @@ public class SessionManager {
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
 
             activity.startActivityForResult(intent, 1);
         }

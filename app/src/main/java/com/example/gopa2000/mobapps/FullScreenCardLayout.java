@@ -65,6 +65,5 @@ public class FullScreenCardLayout extends AppCompatActivity {
             }
         }
         viewprofile_skills.setText(skills3);
-
     }
 }

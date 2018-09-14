@@ -5,16 +5,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.IBinder;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -23,9 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -50,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
 
         /***************** Session Specific ******************/
         activities.add(this);
-
         sessionManager = new SessionManager(getApplicationContext());
 
         // Connect to background socket
@@ -59,10 +51,8 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
         doBindService();
 
         dbHelper = new DbHelper(getApplicationContext());
-
         sessionCache = SessionCache.getInstance();
         userDetails = sessionManager.getUserDetails();
-
         sessionCache.setMatched(dbHelper.getMatchTable());
         sessionCache.generateSessionMatches(userDetails.get(DbHelper.KEY_EMAIL).toString());
 
@@ -74,16 +64,12 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
             Log.d("MainActivity map", entry.getKey() + ": " + entry.getValue().toString());
         }
         ///////////////////////////////////////////////////////////////////////////////////
-
-
-        if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER))
+        if(userDetails.get(DbHelper.KEY_TYPE).toString().equals(DbHelper.KEY_SEEKER)) {
             sessionCache.setSessionCards(dbHelper.getListings());
-        else
+        }
+        else {
             sessionCache.setSessionCards(dbHelper.getSeekers());
-
-
-        /*****************************************************************/
-
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
@@ -108,14 +94,10 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
@@ -123,13 +105,10 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             socketService = ((SocketListener.LocalBinder) iBinder).getService();
-
             socketService.dispServicecb(MainActivity.this);
 
             if(socketService != null){
                 Log.i("service-bind", "Service bound successfully!");
-
-                //do whatever you want to do after successful binding
                 connectToRooms(sessionCache.getSessionMatches());
             }
         }
@@ -163,26 +142,21 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         activities.remove(this);
         doUnbindService();
     }
 
-    public static void finishAll()
-    {
+    public static void finishAll() {
         for(Activity activity:activities)
             activity.finish();
     }
 
     private void connectToRooms(ArrayList<Match> matchList){
-
         for(Match m:matchList) {
             Log.d(TAG, "connectToRooms: " + m.toString());
             String roomID = Match.generateChatroomToken(m.getSeeker(),m.getEmployer());
-
-
 
             JSONObject joinChatObj = new JSONObject();
             try {
@@ -198,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
 
     private void downloadChats(){
         RequestParams requestParams = new RequestParams();
-
         RESTClient.get("api/chat/" + userDetails.get(DbHelper.KEY_EMAIL).toString(), requestParams, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -229,5 +202,4 @@ public class MainActivity extends AppCompatActivity implements MessageSender, Di
     public void addToLiketable(Like like){
 
     }
-
 }

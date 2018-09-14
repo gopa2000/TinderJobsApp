@@ -279,7 +279,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         try (Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
             while(cursor.moveToNext()){
-
                 String salut        = cursor.getString(0);
                 String fname        = cursor.getString(1);
                 String lname        = cursor.getString(2);
@@ -354,7 +353,6 @@ public class DbHelper extends SQLiteOpenHelper {
         String SELECT_QUERY = "SELECT * FROM LikeTable WHERE type=like";
 
         try (Cursor cursor = db.rawQuery(SELECT_QUERY, null)){
-
             while(cursor.moveToNext()) {
                 result.add(new Like(cursor.getString(1), cursor.getString(2)));
             }
@@ -406,7 +404,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 result = cursor.toString();
             }
         }
-
         return result;
     }
 }
