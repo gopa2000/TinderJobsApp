@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class ProfileTabSeeker extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Button view_profile;
+
+    private MessageSender messageSenderCallback;
 
     public ProfileTabSeeker() {
         // Required empty public constructor
@@ -90,17 +93,6 @@ public class ProfileTabSeeker extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -119,5 +111,16 @@ public class ProfileTabSeeker extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        try {
+            messageSenderCallback = (MessageSender) context;
+        } catch(ClassCastException e) {
+            Log.e("PTFrag", "onAttach: ", e);
+        }
     }
 }

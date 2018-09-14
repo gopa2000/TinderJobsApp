@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     // queries for a typo
 
     // db config
-    private static final int DB_VERSION = 27;
+    private static final int DB_VERSION = 32;
     public static final String DB_NAME              = "AppDb";
     public static final String TABLE_LISTINGS       = "Listings";
     public static final String TABLE_EMPLOYERS      = "Employers";
@@ -88,7 +88,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate: " + "Create TABLE " + TABLE_SEEKERS + ".");
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SEEKERS + "(" +
                 KEY_SALUT + " TEXT, " + KEY_FNAME + " TEXT, " +
-                KEY_LNAME + " TEXT, " + KEY_EMAIL + " VARCHAR(320) PRIMARY KEY, " +
+                KEY_LNAME + " TEXT, " + KEY_EMAIL + " VARCHAR(320), " +
                 KEY_EDUCATION + " TEXT, " + KEY_IMG + " TEXT, " +
                 KEY_WORKEXP + " TEXT, " + KEY_MOBNUM + " TEXT, " +
                 KEY_TAGS + " TEXT, " + KEY_LIKES + " TEXT, " +
@@ -98,7 +98,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         Log.d(TAG, "onCreate: " + "Create TABLE " + TABLE_EMPLOYERS + ".");
         CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_EMPLOYERS + "(" +
-                KEY_NAME + " TEXT, " + KEY_EMAIL + " TEXT PRIMARY KEY, " +
+                KEY_NAME + " TEXT, " + KEY_EMAIL + " TEXT , " +
                 KEY_IMG + " TEXT, " + KEY_MOBNUM + " TEXT, " +
                 KEY_INFO + " TEXT, " + KEY_LIKES + " TEXT, " +
                 KEY_DISLIKES + " TEXT" +")";
@@ -218,8 +218,10 @@ public class DbHelper extends SQLiteOpenHelper {
                     for(String column:ColumnNames){
                         if(column.equals(KEY_LIKES) || column.equals(KEY_DISLIKES))
                             values.put(column, jsonObject.getJSONArray(column).toString());
-                        else
+                        else {
+                            Log.d(TAG, "storeData: " + jsonObject.getString(column));
                             values.put(column, jsonObject.getString(column));
+                        }
                     }
                 }
 

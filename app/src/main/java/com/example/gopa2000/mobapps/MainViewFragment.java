@@ -163,7 +163,27 @@ public class MainViewFragment extends Fragment {
                     messageSenderCallback.sendMessage("match", json);
                     sessionCache.addToMatchTable(Liker, Likee, userEmail);
 
-                    RESTClient.post("api/matches", rpMatch, new JsonHttpResponseHandler());
+                    RESTClient.post("api/matches", rpMatch, new JsonHttpResponseHandler(){
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            Log.d(TAG, "onSuccess: " + response.toString());
+                        }
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                            Log.d(TAG, "onSuccess: " + response.toString());
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.d(TAG, "onFailure: " + errorResponse.toString());
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                            Log.d(TAG, "onFailure: " + errorResponse.toString());
+                        }
+                    });
 
                     ListView list = (ListView) getActivity().findViewById(R.id.matches_lv);
                     ArrayAdapter<String> adapter = (ArrayAdapter<String>) list.getAdapter();

@@ -20,6 +20,5 @@ public class FullScreenCardLayoutListing extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_card_layout_listing);
-
     }
 }

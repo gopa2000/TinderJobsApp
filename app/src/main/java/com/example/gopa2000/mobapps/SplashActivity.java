@@ -171,6 +171,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.i(TAG, "onSuccess: " + response.toString());
                 dbHelper.storeData(response, DbHelper.TABLE_LIKES);
 
                 downloadCompleted.add(true);

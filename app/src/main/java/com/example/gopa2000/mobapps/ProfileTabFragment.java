@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -39,6 +41,8 @@ public class ProfileTabFragment extends Fragment {
     private TextView profile_tab_name;
     private ImageView profile_tab_img;
 
+    MessageSender messageSenderCallback;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class ProfileTabFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                messageSenderCallback.sendMessage("disc", new JSONObject());
                 sessionManager.logoutUser();
             }
         });
@@ -163,5 +168,15 @@ public class ProfileTabFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            messageSenderCallback = (MessageSender) context;
+        } catch(ClassCastException e) {
+            Log.e("ptfrag", "onAttach: ", e);
+        }
     }
 }
