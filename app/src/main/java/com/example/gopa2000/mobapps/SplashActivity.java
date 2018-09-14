@@ -4,22 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
-
 import cz.msebera.android.httpclient.Header;
-
 import static com.example.gopa2000.mobapps.DbHelper.TABLE_SEEKERS;
 
 public class SplashActivity extends AppCompatActivity {
-
     private final String TAG = "SplashActivity";
 
     SessionManager sessionManager;
@@ -38,8 +32,7 @@ public class SplashActivity extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
         downloadCompleted = new ArrayList<>();
 
-        //sessionManager.logoutUser();
-
+        sessionManager.logoutUser();
         Hashtable<String, String> last_downloaded = dbHelper.getLastDownloaded();
 
         Log.i(TAG, "onCreate: LastModified TABLE_SEEKERS " + last_downloaded.get(TABLE_SEEKERS));
@@ -62,12 +55,10 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             Log.e(TAG, "onCreate: DB Doesn't exist.");
         }
-
-
         boolean res = true;
-        for(boolean bool:downloadCompleted)
-            if(bool == false) res = false;
-
+        for(boolean bool:downloadCompleted) {
+            if (!bool) res = false;
+        }
     }
 
     private void downloadSeekers(String lastDownloaded){
@@ -77,7 +68,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 downloadCompleted.add(true);
             }
 
@@ -110,17 +100,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 downloadCompleted.add(true);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 if(!response.toString().equals("[]"))
                     dbHelper.storeData(response, DbHelper.TABLE_EMPLOYERS);
-
                 downloadCompleted.add(true);
 
                 if(!sessionManager.isLoggedIn()){
@@ -155,7 +142,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 downloadCompleted.add(true);
             }
 
@@ -163,7 +149,6 @@ public class SplashActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
                 dbHelper.storeData(response, DbHelper.TABLE_LIKES);
-
                 downloadCompleted.add(true);
             }
 
@@ -181,14 +166,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void downloadListing(String lastDownloaded){
         RequestParams params = new RequestParams();
-
         params.put("timestamp", lastDownloaded);
         RESTClient.get("api/listings", params, new JsonHttpResponseHandler(){
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i(TAG, "onSuccess: " + response.toString());
-
                 downloadCompleted.add(true);
             }
 
@@ -196,7 +178,6 @@ public class SplashActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d(TAG, "onSuccess: Listings - " + response.toString());
                 dbHelper.storeData(response, DbHelper.TABLE_LISTINGS);
-
                 downloadCompleted.add(true);
             }
 
